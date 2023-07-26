@@ -1,4 +1,3 @@
-
 # Cafe Manager Application
 
 A web application to view, edit and delete the cafes and employees
@@ -6,16 +5,16 @@ A web application to view, edit and delete the cafes and employees
 # Setup
 
 Create .env.local in the root folder and add the following information
+
 ```bash
 
 VITE_API_BASE_URL=http://localhost:4000/api
 
 ```
 
-
 ## Installation
 
-Install cafe-manager-api project
+Install cafe-manager-app project
 
 ```bash
   git clone https://github.com/nageshwar521/cafe-manager-app.git
@@ -23,4 +22,3 @@ Install cafe-manager-api project
   npm install
   npm run dev
 ```
-    
