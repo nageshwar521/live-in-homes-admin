@@ -79,12 +79,6 @@ const CafeList = () => {
     { field: "address", headerName: "Address" },
     { field: "location", headerName: "Location", cellRenderer: LocationColumn },
     {
-      field: "employees",
-      headerName: "No. of Employees",
-      sortable: true,
-      unSortIcon: true,
-    },
-    {
       field: "",
       cellRenderer: ActionButtons,
     },

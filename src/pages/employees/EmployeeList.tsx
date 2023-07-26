@@ -81,10 +81,7 @@ function dateComparator(date1: string, date2: string) {
   return date1Number - date2Number;
 }
 
-const StartDateColumn: React.FC<ICellRendererParams> = ({
-  value,
-  ...props
-}) => {
+const StartDateColumn: React.FC<ICellRendererParams> = ({ value }) => {
   // console.log(props);
   const startDate = dayjs(value);
   const todayDate = dayjs(new Date());
@@ -136,15 +133,6 @@ const EmployeeList = () => {
     { field: "name", headerName: "Name", sortable: true, unSortIcon: true },
     { field: "email_address", headerName: "Email Address" },
     { field: "phone_number", headerName: "Phone Number" },
-    {
-      field: "start_date",
-      headerName: "Days worked in the cafe",
-      cellRenderer: StartDateColumn,
-      sortable: true,
-      comparator: dateComparator,
-      unSortIcon: true,
-      sort: "asc",
-    },
     { field: "cafe", headerName: "Cafe", cellRenderer: CafeColumn },
     {
       field: "",
