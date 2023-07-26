@@ -132,7 +132,7 @@ const EmployeeList = () => {
   };
 
   const colDef: ColDef[] = [
-    { field: "id", headerName: "Employee Id" },
+    { field: "employeeId", headerName: "Employee Id" },
     { field: "name", headerName: "Name", sortable: true, unSortIcon: true },
     { field: "email_address", headerName: "Email Address" },
     { field: "phone_number", headerName: "Phone Number" },
