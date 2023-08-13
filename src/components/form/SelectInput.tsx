@@ -1,5 +1,11 @@
 import React from "react";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import {
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 import {
   useController,
   UseControllerReturn,
@@ -32,6 +38,8 @@ export const SelectInput = ({
     control,
   });
 
+  console.log("select", control);
+
   return (
     <FieldWrapper className={fieldWrapperClass}>
       <FormControl fullWidth>
@@ -46,13 +54,20 @@ export const SelectInput = ({
           name={controller.field.name}
           value={controller.field.value}
           ref={controller.field.ref}
+          error={!!controller.fieldState.error}
         >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
           {options.map((option: SelectInputOption) => (
             <MenuItem key={option.value} value={option.value}>
               {option.title}
             </MenuItem>
           ))}
         </Select>
+        <FormHelperText error>
+          {controller.fieldState.error?.message}
+        </FormHelperText>
       </FormControl>
     </FieldWrapper>
   );

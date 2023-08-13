@@ -55,6 +55,7 @@ export const generateCafeFormData = ({
   return {
     id: get(cafeDetails, "id"),
     name: get(cafeDetails, "name"),
+    logoUrl: get(cafeDetails, "logoUrl"),
     description: get(cafeDetails, "description"),
     phone_number: get(cafeDetails, "phone_number"),
     address: get(cafeDetails, "address"),

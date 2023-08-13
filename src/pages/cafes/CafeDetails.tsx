@@ -20,6 +20,7 @@ import { TextInput } from "../../components/form/TextInput";
 import { SelectInput } from "../../components/form/SelectInput";
 import BaseButton from "../../components/buttons/BaseButton";
 import Box from "@mui/material/Box";
+import FileUpload from "../../components/form/FileUpload";
 
 const defaultValues: CafeItem = {
   name: "",
@@ -45,6 +46,12 @@ const CafeDetails: React.FC<CafeDetailsProps> = ({
   onSubmit = noop,
 }) => {
   const dispatch = useAppDispatch();
+  const {
+    cafeList,
+    errorResponse,
+    status: addCafeStatus,
+  } = useAppSelector((state) => state.cafes);
+  console.log(addCafeStatus, "addCafeStatus");
   const { locationList, status: locationApiStatus } = useAppSelector(
     (state) => state.locations
   );
@@ -56,29 +63,45 @@ const CafeDetails: React.FC<CafeDetailsProps> = ({
 
   // console.log(form, "form");
 
+  const resetForm = () => {
+    form.reset(defaultValues, {
+      keepIsSubmitted: false,
+      keepSubmitCount: false,
+    });
+    // onClose();
+  };
+
   const locationOptions = getLocationsDropdownList(locationList);
 
   useEffect(() => {
     dispatch(fetchLocationListRequest());
   }, []);
 
-  // useEffect(() => {}, []);
+  useEffect(() => {
+    if (addCafeStatus === "addCafe") {
+      resetForm();
+    }
+  }, [addCafeStatus]);
 
-  const submitForm = (form: CafeItem) => {
-    console.log(form);
-    onSubmit(form);
+  const submitForm = (data: CafeItem) => {
+    console.log(data, "data");
+    onSubmit(data);
   };
 
-  const resetForm = () => {
-    form.reset({});
+  const handleCancel = () => {
+    resetForm();
     onClose();
   };
 
-  console.log(rowDetails, "rowDetails");
+  const onErrors = (errors: any) => {
+    console.log(errors, "errors");
+  };
+
+  console.log(form.getValues(), "form");
 
   return (
     <FormProvider {...form}>
-      <form onSubmit={form.handleSubmit(submitForm)}>
+      <form onSubmit={form.handleSubmit(submitForm, onErrors)}>
         <div>
           <TextInput name="name" label="Name*" placeholder="Enter Name" />
           <TextInput
@@ -107,9 +130,14 @@ const CafeDetails: React.FC<CafeDetailsProps> = ({
             label="Pincode"
             placeholder="Enter Pincode"
           />
+          <FileUpload
+            name="logoUrl"
+            label="Upload logo"
+            placeholder="Choose logo..."
+          />
         </div>
         <Box display="flex" flexDirection="row" justifyContent="flex-end">
-          <BaseButton boxProps={{ marginRight: "10px" }} onClick={resetForm}>
+          <BaseButton boxProps={{ marginRight: "10px" }} onClick={handleCancel}>
             Cancel
           </BaseButton>
           <BaseButton type="submit" variant="contained">

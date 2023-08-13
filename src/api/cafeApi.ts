@@ -16,8 +16,11 @@ export const getCafeListApi = async (params: any) => {
 };
 
 export const addCafeApi = async (data: any) => {
+  const formData = new FormData();
+  formData.append("file", data.logoUrl);
+  const newData = { ...data, logoUrl: formData };
   try {
-    const response = await axios.post(`${apiBaseUrl}/cafes`, data);
+    const response = await axios.post(`${apiBaseUrl}/cafes`, newData);
     return response;
   } catch (error) {
     console.log("error:", error);
@@ -25,11 +28,29 @@ export const addCafeApi = async (data: any) => {
   }
 };
 
+const objToFormData = (obj: any = {}) => {
+  console.log(obj, "objToFormData obj");
+  const formData = new FormData();
+  for (let key in obj) {
+    formData.append(key, obj[key]);
+  }
+  console.log(formData, "formData");
+  return formData;
+};
+
 export const updateCafeApi = async (params: any) => {
+  const formData = objToFormData(params.data);
+  console.log(formData.values(), "updateCafeApi formData");
   try {
     const response = await axios.put(
       `${apiBaseUrl}/cafes/${params.id}`,
-      params.data
+      formData,
+      {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "multipart/form-data",
+        },
+      }
     );
     return response;
   } catch (error) {

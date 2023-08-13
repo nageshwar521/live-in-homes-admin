@@ -18,7 +18,7 @@ import {
 import { get } from "lodash";
 import BaseButton from "../../components/buttons/BaseButton";
 import Alert from "@mui/material/Alert";
-import { Box, SelectChangeEvent } from "@mui/material";
+import { Box, CardMedia, SelectChangeEvent } from "@mui/material";
 import { fetchLocationListRequest } from "../../store/slices/locationSlice";
 import FilterDropdown from "../../components/form/FilterDropdown";
 import FlexGrow from "../../components/FlexGrow";
@@ -33,10 +33,22 @@ const LocationColumn: React.FC<ICellRendererParams> = ({ value, ...props }) => {
   return <span>{get(value, "name", "")}</span>;
 };
 
-const CafeList = () => {
-  const { cafeList, errorResponse } = useAppSelector(
-    (state: RootState) => state.cafes
+const LgoColumn: React.FC<ICellRendererParams> = ({ value, ...props }) => {
+  return (
+    <CardMedia
+      component="img"
+      sx={{ width: 151, objectFit: "contain" }}
+      image={value}
+    />
   );
+};
+
+const CafeList = () => {
+  const {
+    cafeList,
+    errorResponse,
+    status: addCafeStatus,
+  } = useAppSelector((state: RootState) => state.cafes);
   const [isAddCafeFormOpen, setIsCafeFormOpen] = useState(false);
   const [isDeleteCafeOpen, setIsDeleteCafeOpen] = useState(false);
   const [rowDetails, setRowDetails] = useState<RowDetailsInterface | null>(
@@ -49,10 +61,6 @@ const CafeList = () => {
   const { locationList, status: locationApiStatus } = useAppSelector(
     (state) => state.locations
   );
-
-  const isExternalFilterPresent = () => {
-    return true;
-  };
 
   const dispatch = useAppDispatch();
 
@@ -74,6 +82,7 @@ const CafeList = () => {
   }, []);
 
   const colDef: ColDef[] = [
+    { field: "logoUrl", headerName: "Logo", cellRenderer: LgoColumn },
     { field: "name", headerName: "Name", sortable: true, unSortIcon: true },
     { field: "phone_number", headerName: "Phone Number" },
     { field: "address", headerName: "Address" },
@@ -96,6 +105,7 @@ const CafeList = () => {
   };
 
   const handleUpdateCafe = (data: any) => {
+    console.log("handleUpdateCafe");
     dispatch(updateCafeRequest(data));
   };
 
@@ -128,6 +138,7 @@ const CafeList = () => {
       });
       setRowDetails({ formData: cafeDetails, nodeItem, colDef });
     } else if (action === "delete") {
+      setModalType("delete");
       setIsDeleteCafeOpen(true);
       const cafeDetails = generateCafeFormData({
         cafeDetails: get(nodeItem, "data"),

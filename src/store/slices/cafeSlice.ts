@@ -14,7 +14,7 @@ export const cafeSlice = createSlice({
   initialState,
   reducers: {
     fetchCafeListRequest: (state, { payload }: PayloadAction<any>) => {
-      state.status = "loading";
+      state.status = "fetchCafeList";
     },
     fetchCafeListSuccess: (state, { payload }: PayloadAction<any>) => {
       state.status = "success";
@@ -28,7 +28,7 @@ export const cafeSlice = createSlice({
       toast.error(payload.message);
     },
     addCafeRequest: (state, payload: PayloadAction<any>) => {
-      state.status = "loading";
+      state.status = "addCafe";
     },
     addCafeSuccess: (state, { payload }: PayloadAction<any>) => {
       state.status = "success";
@@ -42,7 +42,7 @@ export const cafeSlice = createSlice({
       toast.error(payload.message);
     },
     updateCafeRequest: (state, payload: PayloadAction<any>) => {
-      state.status = "loading";
+      state.status = "updateCafe";
     },
     updateCafeSuccess: (state, { payload }: PayloadAction<any>) => {
       state.status = "success";
@@ -56,7 +56,7 @@ export const cafeSlice = createSlice({
       toast.error(payload.message);
     },
     deleteCafeRequest: (state, payload: PayloadAction<any>) => {
-      state.status = "loading";
+      state.status = "deleteCafe";
     },
     deleteCafeSuccess: (state, { payload }: PayloadAction<any>) => {
       state.status = "success";
@@ -70,7 +70,8 @@ export const cafeSlice = createSlice({
       toast.error(payload.message);
     },
     resetCafeState: (state, { payload }: PayloadAction<any>) => {
-      (state as any)[payload.field] = payload.value;
+      console.log(payload, "resetCafeState payload");
+      state = { ...state, ...payload };
     },
   },
 });
@@ -88,4 +89,5 @@ export const {
   deleteCafeRequest,
   deleteCafeSuccess,
   deleteCafeFailed,
+  resetCafeState,
 } = cafeSlice.actions;
