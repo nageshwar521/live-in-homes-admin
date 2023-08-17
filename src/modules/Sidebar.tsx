@@ -35,6 +35,15 @@ const Sidebar: React.FC<SidebarProps> = ({}) => {
             <ListItem disablePadding>
               <ListItemButton
                 component={Link}
+                to="/dashboard"
+                selected={location.pathname === "/dashboard"}
+              >
+                <ListItemText primary="Dashboard" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton
+                component={Link}
                 to="/cafes"
                 selected={location.pathname === "/cafes"}
               >
@@ -48,6 +57,15 @@ const Sidebar: React.FC<SidebarProps> = ({}) => {
                 selected={location.pathname === "/employees"}
               >
                 <ListItemText primary="Employees" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton
+                component={Link}
+                to="/settings"
+                selected={location.pathname === "/settings"}
+              >
+                <ListItemText primary="Settings" />
               </ListItemButton>
             </ListItem>
           </List>

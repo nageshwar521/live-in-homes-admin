@@ -8,6 +8,11 @@ import { drawerWidth } from "./constants";
 import { BrowserRouter } from "react-router-dom";
 import { Global, css } from "@emotion/react";
 import { Toaster } from "react-hot-toast";
+import { useEffect } from "react";
+import { fetchLocationListRequest } from "./store/slices/locationSlice";
+import { useDispatch } from "react-redux";
+import { fetchCafeListRequest } from "./store/slices/cafeSlice";
+import { fetchEmployeeListRequest } from "./store/slices/employeeSlice";
 
 const GlobalStyles = css`
   .ag-root {
@@ -16,9 +21,17 @@ const GlobalStyles = css`
 `;
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchEmployeeListRequest({}));
+    dispatch(fetchLocationListRequest());
+    dispatch(fetchCafeListRequest({}));
+  }, []);
+
   return (
     <BrowserRouter>
-      <Box sx={{ display: "flex", width: "100%" }}>
+      <Box sx={{ display: "flex", flex: 1, width: "100%", height: "100%" }}>
         <Toaster toastOptions={{ duration: 2000 }} />
         <Global styles={GlobalStyles} />
         <Header />

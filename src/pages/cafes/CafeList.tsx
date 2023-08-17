@@ -22,6 +22,7 @@ import { Box, CardMedia, SelectChangeEvent } from "@mui/material";
 import { fetchLocationListRequest } from "../../store/slices/locationSlice";
 import FilterDropdown from "../../components/form/FilterDropdown";
 import FlexGrow from "../../components/FlexGrow";
+import styled from "@emotion/styled";
 
 export interface RowDetailsInterface {
   nodeItem?: any;
@@ -29,17 +30,26 @@ export interface RowDetailsInterface {
   formData: any;
 }
 
+const ImageWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+`;
+
 const LocationColumn: React.FC<ICellRendererParams> = ({ value, ...props }) => {
   return <span>{get(value, "name", "")}</span>;
 };
 
 const LgoColumn: React.FC<ICellRendererParams> = ({ value, ...props }) => {
   return (
-    <CardMedia
-      component="img"
-      sx={{ width: 151, objectFit: "contain" }}
-      image={value}
-    />
+    <ImageWrapper>
+      <CardMedia
+        component="img"
+        sx={{ width: 40, objectFit: "contain" }}
+        image={value}
+      />
+    </ImageWrapper>
   );
 };
 
