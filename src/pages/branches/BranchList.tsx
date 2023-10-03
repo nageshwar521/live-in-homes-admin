@@ -3,16 +3,16 @@ import { AgGridWrapper } from "../../components/aggrid/AgGridWrapper";
 import { RootState, useAppDispatch, useAppSelector } from "../../store";
 import React, { useEffect, useState } from "react";
 import {
-  addCafeRequest,
-  deleteCafeRequest,
-  fetchCafeListRequest,
-  updateCafeRequest,
-} from "../../store/slices/cafeSlice";
+  addBranchRequest,
+  deleteBranchRequest,
+  fetchBranchListRequest,
+  updateBranchRequest,
+} from "../../store/slices/branchSlice";
 import Modal from "../../components/Modal";
-import CafeDetails from "./CafeDetails";
+import BranchDetails from "./BranchDetails";
 import ActionButtons from "../../components/aggrid/ActionButtons";
 import {
-  generateCafeFormData,
+  generateBranchFormData,
   getLocationsDropdownList,
 } from "../../utils/common";
 import { get } from "lodash";
@@ -48,18 +48,18 @@ const LgoColumn: React.FC<ICellRendererParams> = ({ value, ...props }) => {
   );
 };
 
-const CafeList = () => {
+const BranchList = () => {
   const {
-    cafeList,
+    branchList,
     errorResponse,
-    status: addCafeStatus,
-  } = useAppSelector((state: RootState) => state.cafes);
-  const [isAddCafeFormOpen, setIsCafeFormOpen] = useState(false);
-  const [isDeleteCafeOpen, setIsDeleteCafeOpen] = useState(false);
+    status: addBranchStatus,
+  } = useAppSelector((state: RootState) => state.);
+  const [isAddBranchFormOpen, setIsBranchFormOpen] = useState(false);
+  const [isDeleteBranchOpen, setIsDeleteBranchOpen] = useState(false);
   const [rowDetails, setRowDetails] = useState<RowDetailsInterface | null>(
     null
   );
-  const [cafeLocation, setCafeLocation] = useState("");
+  const [branchLocation, setBranchLocation] = useState("");
   const [gridApi, setGridApi] = useState(null);
   const [gridColumnApi, setGridColumnApi] = useState(null);
   const [modalType, setModalType] = useState<any>("create");
@@ -70,8 +70,8 @@ const CafeList = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchCafeListRequest({ locationId: cafeLocation }));
-  }, [cafeLocation]);
+    dispatch(fetchBranchListRequest({ locationId: branchLocation }));
+  }, [branchLocation]);
 
   const handleGridReady = (params: any) => {
     setGridApi(params.api);
@@ -79,7 +79,7 @@ const CafeList = () => {
   };
 
   const handleDetailsClose = () => {
-    setIsCafeFormOpen(false);
+    setIsBranchFormOpen(false);
   };
 
   useEffect(() => {
@@ -98,36 +98,36 @@ const CafeList = () => {
     },
   ];
 
-  const handleAddCafe = (data: any) => {
-    dispatch(addCafeRequest(data));
+  const handleAddBranch = (data: any) => {
+    dispatch(addBranchRequest(data));
   };
 
-  const handleAddCafeClick = () => {
+  const handleAddBranchClick = () => {
     setModalType("create");
-    setIsCafeFormOpen(true);
-    const cafeDetails = generateCafeFormData({});
-    setRowDetails({ formData: cafeDetails });
+    setIsBranchFormOpen(true);
+    const branchDetails = generateBranchFormData({});
+    setRowDetails({ formData: branchDetails });
   };
 
-  const handleUpdateCafe = (data: any) => {
-    console.log("handleUpdateCafe");
-    dispatch(updateCafeRequest(data));
+  const handleUpdateBranch = (data: any) => {
+    console.log("handleUpdateBranch");
+    dispatch(updateBranchRequest(data));
   };
 
-  const handleDeleteCafe = () => {
+  const handleDeleteBranch = () => {
     console.log(rowDetails?.formData);
-    setIsDeleteCafeOpen(false);
-    dispatch(deleteCafeRequest({ id: rowDetails?.formData.id }));
+    setIsDeleteBranchOpen(false);
+    dispatch(deleteBranchRequest({ id: rowDetails?.formData.id }));
   };
 
   const handleSubmitForm = (data: any) => {
     if (modalType === "edit") {
-      handleUpdateCafe({ id: rowDetails?.formData.id, data });
+      handleUpdateBranch({ id: rowDetails?.formData.id, data });
     } else {
-      handleAddCafe(data);
+      handleAddBranch(data);
     }
   };
-  // console.log(cafeList, "cafeList");
+  // console.log(branchList, "branchList");
 
   const handleActionButtonClick = (
     action: string,
@@ -136,29 +136,27 @@ const CafeList = () => {
   ) => {
     if (action === "edit") {
       setModalType("edit");
-      setIsCafeFormOpen(true);
-      const cafeDetails = generateCafeFormData({
-        cafeDetails: get(nodeItem, "data"),
-        locations: locationList,
+      setIsBranchFormOpen(true);
+      const branchDetails = generateBranchFormData({
+        branchDetails: get(nodeItem, "data"),
       });
-      setRowDetails({ formData: cafeDetails, nodeItem, colDef });
+      setRowDetails({ formData: branchDetails, nodeItem, colDef });
     } else if (action === "delete") {
       setModalType("delete");
-      setIsDeleteCafeOpen(true);
-      const cafeDetails = generateCafeFormData({
-        cafeDetails: get(nodeItem, "data"),
-        locations: locationList,
+      setIsDeleteBranchOpen(true);
+      const branchDetails = generateBranchFormData({
+        branchDetails: get(nodeItem, "data"),
       });
-      setRowDetails({ formData: cafeDetails, nodeItem, colDef });
+      setRowDetails({ formData: branchDetails, nodeItem, colDef });
     }
   };
 
   const handleLocationFilterChange = (e: SelectChangeEvent<any>) => {
-    setCafeLocation(e.target.value);
+    setBranchLocation(e.target.value);
   };
 
   const handleLocationFilterClear = (option: any) => {
-    setCafeLocation(option.id);
+    setBranchLocation(option.id);
   };
 
   const locationOptions = getLocationsDropdownList(locationList);
@@ -167,35 +165,35 @@ const CafeList = () => {
 
   return (
     <>
-      {isAddCafeFormOpen ? (
+      {isAddBranchFormOpen ? (
         <Modal
-          title="Cafe Details"
-          isOpen={isAddCafeFormOpen}
+          title="Branch Details"
+          isOpen={isAddBranchFormOpen}
           onClose={handleDetailsClose}
         >
           {get(errorResponse, "message", "") ? (
             <Alert severity="error">{get(errorResponse, "message", "")}</Alert>
           ) : null}
-          <CafeDetails
+          <BranchDetails
             mode={modalType}
             rowDetails={rowDetails}
-            onClose={() => setIsCafeFormOpen(false)}
+            onClose={() => setIsBranchFormOpen(false)}
             onSubmit={handleSubmitForm}
           />
         </Modal>
       ) : null}
-      {isDeleteCafeOpen ? (
+      {isDeleteBranchOpen ? (
         <Modal
-          title="Delete Cafe"
+          title="Delete Branch"
           isOpen
-          onClose={() => setIsDeleteCafeOpen(false)}
+          onClose={() => setIsDeleteBranchOpen(false)}
         >
-          <div>Do you want to delete the cafe?</div>
+          <div>Do you want to delete the branch?</div>
           <Box display="flex" flexDirection="row" justifyContent="flex-end">
-            <BaseButton onClick={() => setIsDeleteCafeOpen(false)}>
+            <BaseButton onClick={() => setIsDeleteBranchOpen(false)}>
               Cancel
             </BaseButton>
-            <BaseButton variant="contained" onClick={handleDeleteCafe}>
+            <BaseButton variant="contained" onClick={handleDeleteBranch}>
               Delete
             </BaseButton>
           </Box>
@@ -205,7 +203,7 @@ const CafeList = () => {
         <Box>
           <FilterDropdown
             label="Filter:"
-            value={cafeLocation}
+            value={branchLocation}
             onChange={handleLocationFilterChange}
             onClearFilter={handleLocationFilterClear}
             options={locationOptions}
@@ -213,14 +211,14 @@ const CafeList = () => {
         </Box>
         <FlexGrow />
         <Box>
-          <BaseButton variant="contained" onClick={handleAddCafeClick}>
-            Add Cafe
+          <BaseButton variant="contained" onClick={handleAddBranchClick}>
+            Add Branch
           </BaseButton>
         </Box>
       </Box>
       <AgGridWrapper
         domLayout="autoHeight"
-        rowData={cafeList}
+        rowData={branchList}
         columnDefs={colDef}
         context={{
           onActionButtonClick: handleActionButtonClick,
@@ -231,4 +229,4 @@ const CafeList = () => {
   );
 };
 
-export default CafeList;
+export default BranchList;

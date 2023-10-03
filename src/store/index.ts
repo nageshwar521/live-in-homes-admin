@@ -10,11 +10,15 @@ import { cafeSlice } from "./slices/cafeSlice";
 import { employeeSlice } from "./slices/employeeSlice";
 import { locationSlice } from "./slices/locationSlice";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
+import { drinkSlice } from "./slices/drinkSlice";
+import { branchSlice } from "./slices/branchSlice";
 
 const rootReducer = combineReducers({
   cafes: cafeSlice.reducer,
   employees: employeeSlice.reducer,
   locations: locationSlice.reducer,
+  drinks: drinkSlice.reducer,
+  branches: branchSlice.reducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();

@@ -6,22 +6,18 @@ import {
 } from "react-hook-form";
 import { CafeItem } from "../../store/types";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { cafeSchema } from "../../utils/validation";
+import { branchSchema, cafeSchema } from "../../utils/validation";
 import React, { useEffect, useState } from "react";
 import { get, noop } from "lodash";
-import { RowDetailsInterface } from "./CafeList";
+import { BranchDetailsProps } from "./types";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { fetchLocationListRequest } from "../../store/slices/locationSlice";
-import {
-  generateCafeFormData,
-  getLocationsDropdownList,
-} from "../../utils/common";
+import { getLocationsDropdownList } from "../../utils/common";
 import { TextInput } from "../../components/form/TextInput";
 import { SelectInput } from "../../components/form/SelectInput";
 import BaseButton from "../../components/buttons/BaseButton";
 import Box from "@mui/material/Box";
 import FileUpload from "../../components/form/FileUpload";
-import { CafeDetailsProps } from "./types";
 
 const defaultValues: CafeItem = {
   name: "",
@@ -33,7 +29,7 @@ const defaultValues: CafeItem = {
   pincode: "",
 };
 
-const CafeDetails: React.FC<CafeDetailsProps> = ({
+const CafeDetails: React.FC<BranchDetailsProps> = ({
   onClose = noop,
   rowDetails = {},
   mode = "create",
@@ -52,7 +48,7 @@ const CafeDetails: React.FC<CafeDetailsProps> = ({
   const formData = get(rowDetails, "formData");
   const form: UseFormReturn<CafeItem, UseFormProps> = useForm<CafeItem>({
     values: formData,
-    resolver: yupResolver(cafeSchema),
+    resolver: yupResolver(branchSchema),
   });
 
   // console.log(form, "form");

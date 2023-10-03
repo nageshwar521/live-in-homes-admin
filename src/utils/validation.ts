@@ -21,3 +21,25 @@ export const employeeSchema = yup.object().shape({
   cafe: yup.string().required().label("Cafe"),
   email_address: yup.string().email().required().label("Email Address"),
 });
+
+export const drinkSchema = yup.object().shape({
+  first_name: yup.string().required().min(2).max(120).label("First Name"),
+  last_name: yup.string().required().min(2).max(120).label("Last Name"),
+  phone_number: yup.string().required().phone().label("Phone Number"),
+  start_date: yup.date().required().label("Start Date"),
+  gender: yup.string().label("Gender"),
+  address: yup.string().label("Address"),
+  role: yup.string().label("Role"),
+  email_address: yup.string().email().required().label("Email Address"),
+});
+
+export const branchSchema = yup.object().shape({
+  first_name: yup.string().required().min(2).max(120).label("First Name"),
+  last_name: yup.string().required().min(2).max(120).label("Last Name"),
+  phone_number: yup.string().required().phone().label("Phone Number"),
+  start_date: yup.date().required().label("Start Date"),
+  gender: yup.string().label("Gender"),
+  address: yup.string().label("Address"),
+  role: yup.string().label("Role"),
+  email_address: yup.string().email().required().label("Email Address"),
+});

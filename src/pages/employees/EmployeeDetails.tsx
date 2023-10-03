@@ -9,7 +9,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { employeeSchema } from "../../utils/validation";
 import React, { useEffect, useState } from "react";
 import { get, isEmpty, noop } from "lodash";
-import { RowDetailsInterface } from "./EmployeeList";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { fetchCafeListRequest } from "../../store/slices/cafeSlice";
 import {
@@ -24,6 +23,7 @@ import { fetchEmployeeListRequest } from "../../store/slices/employeeSlice";
 import Box from "@mui/material/Box";
 import { RadioInput } from "../../components/form/RadioInput";
 import { DateInput } from "../../components/form/DateInput";
+import { EmployeeDetailsProps } from "./types";
 
 const defaultValues: EmployeeItem = {
   first_name: "",
@@ -35,13 +35,6 @@ const defaultValues: EmployeeItem = {
   email_address: "",
   cafe: "",
 };
-
-interface EmployeeDetailsProps {
-  mode?: "view" | "edit" | "create";
-  onClose?: () => void;
-  rowDetails: RowDetailsInterface | null;
-  onSubmit: (data: any) => void;
-}
 
 const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({
   onClose = noop,

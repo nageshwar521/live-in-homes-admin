@@ -2,30 +2,24 @@ import { ColDef, ICellRendererParams } from "ag-grid-community";
 import { AgGridWrapper } from "../../components/aggrid/AgGridWrapper";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, useAppSelector } from "../../store";
-import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
-  addEmployeeRequest,
-  deleteEmployeeRequest,
-  fetchEmployeeListRequest,
-  updateEmployeeRequest,
-} from "../../store/slices/employeeSlice";
+  addDrinkRequest,
+  deleteDrinkRequest,
+  fetchDrinksListRequest,
+  updateDrinkRequest,
+} from "../../store/slices/drinkSlice";
 import Modal from "../../components/Modal";
-import EmployeeDetails from "./EmployeeDetails";
+import DrinkDetails from "./DrinkDetails";
 import ActionButtons from "../../components/aggrid/ActionButtons";
-import {
-  generateEmployeeFormData,
-  getCafesDropdownList,
-} from "../../utils/common";
+import { generateDrinkFormData } from "../../utils/common";
 import { get } from "lodash";
 import Row from "../../components/layout/Row";
 import BaseButton from "../../components/buttons/BaseButton";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
 import Alert from "@mui/material/Alert";
-import FilterDropdown from "../../components/form/FilterDropdown";
 import Box from "@mui/material/Box";
-import { fetchCafeListRequest } from "../../store/slices/cafeSlice";
 import { SelectChangeEvent } from "@mui/material";
 import FlexGrow from "../../components/FlexGrow";
 import { RowDetailsInterface } from "./types";
@@ -84,7 +78,7 @@ const StartDateColumn: React.FC<ICellRendererParams> = ({ value }) => {
   return <span>{getDurationFormat(duration)}</span>;
 };
 
-const CafeColumn: React.FC<ICellRendererParams> = ({ value, ...props }) => {
+const DrinkColumn: React.FC<ICellRendererParams> = ({ value, ...props }) => {
   return (
     <span>{`${get(value, "name", "")}, ${get(
       value,
@@ -94,76 +88,78 @@ const CafeColumn: React.FC<ICellRendererParams> = ({ value, ...props }) => {
   );
 };
 
-const EmployeeList = () => {
-  const { employeeList, status, errorResponse } = useAppSelector(
-    (state: RootState) => state.employees
+const DrinksList = () => {
+  const { drinkList, status, errorResponse } = useAppSelector(
+    (state: RootState) => state.drinks
   );
-  const [isAddEmployeeFormOpen, setIsEmployeeFormOpen] = useState(false);
-  const [isDeleteEmployeeOpen, setIsDeleteEmployeeOpen] = useState(false);
+  const [isAddDrinkFormOpen, setIsDrinkFormOpen] = useState(false);
+  const [isDeleteDrinkOpen, setIsDeleteDrinkOpen] = useState(false);
   const [rowDetails, setRowDetails] = useState<RowDetailsInterface | null>(
     null
   );
   const [modalType, setModalType] = useState<any>("create");
-  const { cafeList, status: cafeApiStatus } = useAppSelector(
-    (state) => state.cafes
-  );
-  const [cafe, setCafe] = useState<any>("");
+  const [drink, setDrink] = useState<any>("");
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchEmployeeListRequest({ cafeId: cafe }));
-  }, [cafe]);
-
-  useEffect(() => {
-    dispatch(fetchCafeListRequest({}));
-  }, []);
+    dispatch(fetchDrinksListRequest({ drinkId: drink }));
+  }, [drink]);
 
   const handleDetailsClose = () => {
-    setIsEmployeeFormOpen(false);
+    setIsDrinkFormOpen(false);
   };
 
   const colDef: ColDef[] = [
-    { field: "employeeId", headerName: "Employee Id" },
     { field: "name", headerName: "Name", sortable: true, unSortIcon: true },
-    { field: "email_address", headerName: "Email Address" },
-    { field: "phone_number", headerName: "Phone Number" },
-    { field: "cafe", headerName: "Cafe", cellRenderer: CafeColumn },
+    { field: "price", headerName: "Price", sortable: true, unSortIcon: true },
+    {
+      field: "quantity",
+      headerName: "Quantity",
+      sortable: true,
+      unSortIcon: true,
+    },
+    {
+      field: "units",
+      headerName: "Units",
+      sortable: true,
+      unSortIcon: true,
+    },
     {
       field: "",
       cellRenderer: ActionButtons,
     },
   ];
 
-  const handleAddEmployee = (data: any) => {
-    dispatch(addEmployeeRequest(data));
+  const handleAddDrink = (data: any) => {
+    dispatch(addDrinkRequest(data));
   };
 
-  const handleAddEmployeeClick = () => {
+  const handleAddDrinkClick = () => {
     setModalType("create");
-    setIsEmployeeFormOpen(true);
-    const employeeDetails = generateEmployeeFormData({});
-    setRowDetails({ formData: employeeDetails });
+    setIsDrinkFormOpen(true);
+    const drinkDetails = generateDrinkFormData({});
+    setRowDetails({ formData: drinkDetails });
   };
 
-  const handleUpdateEmployee = (data: any) => {
-    dispatch(updateEmployeeRequest(data));
+  const handleUpdateDrink = (data: any) => {
+    dispatch(updateDrinkRequest(data));
   };
 
-  const handleDeleteEmployee = () => {
+  const handleDeleteDrink = () => {
     console.log(rowDetails?.formData);
-    setIsDeleteEmployeeOpen(false);
-    dispatch(deleteEmployeeRequest({ id: rowDetails?.formData.id }));
+    setIsDeleteDrinkOpen(false);
+    dispatch(deleteDrinkRequest({ id: rowDetails?.formData.id }));
   };
 
   const handleSubmitForm = (data: any) => {
     if (modalType === "edit") {
-      handleUpdateEmployee({ id: rowDetails?.formData.id, data });
+      handleUpdateDrink({ id: rowDetails?.formData.id, data });
     } else {
-      handleAddEmployee(data);
+      handleAddDrink(data);
     }
   };
-  // console.log(employeeList, "employeeList");
+  // console.log(drinkList, "drinkList");
 
   const handleActionButtonClick = (
     action: string,
@@ -172,89 +168,77 @@ const EmployeeList = () => {
   ) => {
     if (action === "edit") {
       setModalType("edit");
-      setIsEmployeeFormOpen(true);
-      const employeeDetails = generateEmployeeFormData({
-        employeeDetails: get(nodeItem, "data"),
-        cafes: cafeList,
+      setIsDrinkFormOpen(true);
+      const drinkDetails = generateDrinkFormData({
+        drinkDetails: get(nodeItem, "data"),
       });
-      setRowDetails({ formData: employeeDetails, nodeItem, colDef });
+      setRowDetails({ formData: drinkDetails, nodeItem, colDef });
     } else if (action === "delete") {
-      setIsDeleteEmployeeOpen(true);
-      const employeeDetails = generateEmployeeFormData({
-        employeeDetails: get(nodeItem, "data"),
-        cafes: cafeList,
+      setIsDeleteDrinkOpen(true);
+      const drinkDetails = generateDrinkFormData({
+        drinkDetails: get(nodeItem, "data"),
       });
-      setRowDetails({ formData: employeeDetails, nodeItem, colDef });
+      setRowDetails({ formData: drinkDetails, nodeItem, colDef });
     }
   };
 
-  const handleCafeChange = (e: SelectChangeEvent<any>) => {
-    setCafe(e.target.value);
+  const handleDrinkChange = (e: SelectChangeEvent<any>) => {
+    setDrink(e.target.value);
   };
 
   const handleLocationFilterClear = (option: any) => {
-    setCafe(option.id);
+    setDrink(option.id);
   };
-
-  const locationOptions = getCafesDropdownList(cafeList);
 
   return (
     <>
-      {isAddEmployeeFormOpen ? (
+      {isAddDrinkFormOpen ? (
         <Modal
-          title="Employee Details"
-          isOpen={isAddEmployeeFormOpen}
+          title="Drink Details"
+          isOpen={isAddDrinkFormOpen}
           onClose={handleDetailsClose}
         >
           {get(errorResponse, "message", "") ? (
             <Alert severity="error">{get(errorResponse, "message", "")}</Alert>
           ) : null}
-          <EmployeeDetails
+          <DrinkDetails
             mode={modalType}
             rowDetails={rowDetails}
-            onClose={() => setIsEmployeeFormOpen(false)}
+            onClose={() => setIsDrinkFormOpen(false)}
             onSubmit={handleSubmitForm}
           />
         </Modal>
       ) : null}
-      {isDeleteEmployeeOpen ? (
+      {isDeleteDrinkOpen ? (
         <Modal
-          title="Delete Employee"
+          title="Delete Drink"
           isOpen
-          onClose={() => setIsDeleteEmployeeOpen(false)}
+          onClose={() => setIsDeleteDrinkOpen(false)}
         >
-          <div>Do you want to delete the employee?</div>
+          <div>Do you want to delete the drink?</div>
           <Row justifyContent="flex-end">
-            <BaseButton onClick={() => setIsDeleteEmployeeOpen(false)}>
+            <BaseButton onClick={() => setIsDeleteDrinkOpen(false)}>
               Cancel
             </BaseButton>
-            <BaseButton variant="contained" onClick={handleDeleteEmployee}>
+            <BaseButton variant="contained" onClick={handleDeleteDrink}>
               Submit
             </BaseButton>
           </Row>
         </Modal>
       ) : null}
       <Box display="flex" flexDirection="row" marginBottom="20px">
-        <Box>
-          <FilterDropdown
-            label="Filter:"
-            value={cafe}
-            onChange={handleCafeChange}
-            options={locationOptions}
-            onClearFilter={handleLocationFilterClear}
-          />
-        </Box>
+        <Box />
         <FlexGrow />
         <Box>
-          <BaseButton variant="contained" onClick={handleAddEmployeeClick}>
-            Add Employee
+          <BaseButton variant="contained" onClick={handleAddDrinkClick}>
+            Add Drink
           </BaseButton>
         </Box>
       </Box>
       <Box>
         <AgGridWrapper
           domLayout="autoHeight"
-          rowData={employeeList}
+          rowData={drinkList}
           columnDefs={colDef}
           context={{
             onActionButtonClick: handleActionButtonClick,
@@ -265,4 +249,4 @@ const EmployeeList = () => {
   );
 };
 
-export default EmployeeList;
+export default DrinksList;

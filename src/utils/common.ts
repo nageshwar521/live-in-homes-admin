@@ -1,5 +1,5 @@
 import get from "lodash/get";
-import { CafeItem, LocationItem } from "../store/types";
+import { CafeItem, CategoryItem, LocationItem } from "../store/types";
 
 export const getLocationsDropdownList = (locations: LocationItem[] = []) => {
   return locations.map((locationItem: LocationItem) => {
@@ -17,6 +17,16 @@ export const getCafesDropdownList = (cafes: CafeItem[] = []) => {
       value: cafeItem?.id || "",
       title: `${cafeItem.name}, ${get(cafeItem, "location.name")}`,
       data: cafeItem,
+    };
+  });
+};
+
+export const getCategoriesDropdownList = (categories: CategoryItem[] = []) => {
+  return categories.map((categoryItem: CategoryItem) => {
+    return {
+      value: categoryItem?.id || "",
+      title: `${categoryItem.name}, ${get(categoryItem, "location.name")}`,
+      data: categoryItem,
     };
   });
 };
@@ -81,5 +91,39 @@ export const generateEmployeeFormData = ({
     start_date: get(employeeDetails, "start_date"),
     email_address: get(employeeDetails, "email_address"),
     cafe: getCafeById({ cafes, cafeId: get(employeeDetails, "cafe") })?.id,
+  };
+};
+
+export const generateBranchFormData = ({
+  branchDetails = {},
+}: {
+  branchDetails?: any;
+}) => {
+  return {
+    id: get(branchDetails, "id"),
+    first_name: get(branchDetails, "name"),
+    last_name: get(branchDetails, "description"),
+    phone_number: get(branchDetails, "phone_number"),
+    gender: get(branchDetails, "gender"),
+    address: get(branchDetails, "address"),
+    start_date: get(branchDetails, "start_date"),
+    email_address: get(branchDetails, "email_address"),
+  };
+};
+
+export const generateDrinkFormData = ({
+  drinkDetails = {},
+}: {
+  drinkDetails?: any;
+}) => {
+  return {
+    id: get(drinkDetails, "id"),
+    first_name: get(drinkDetails, "name"),
+    last_name: get(drinkDetails, "description"),
+    phone_number: get(drinkDetails, "phone_number"),
+    gender: get(drinkDetails, "gender"),
+    address: get(drinkDetails, "address"),
+    start_date: get(drinkDetails, "start_date"),
+    email_address: get(drinkDetails, "email_address"),
   };
 };

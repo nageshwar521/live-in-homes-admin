@@ -53,6 +53,15 @@ const Sidebar: React.FC<SidebarProps> = ({}) => {
             <ListItem disablePadding>
               <ListItemButton
                 component={Link}
+                to="/beverages"
+                selected={location.pathname === "/beverages"}
+              >
+                <ListItemText primary="Beverages" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton
+                component={Link}
                 to="/employees"
                 selected={location.pathname === "/employees"}
               >
