@@ -41,7 +41,7 @@ const Sidebar: React.FC<SidebarProps> = ({}) => {
                 <ListItemText primary="Dashboard" />
               </ListItemButton>
             </ListItem>
-            <ListItem disablePadding>
+            {/* <ListItem disablePadding>
               <ListItemButton
                 component={Link}
                 to="/cafes"
@@ -49,8 +49,8 @@ const Sidebar: React.FC<SidebarProps> = ({}) => {
               >
                 <ListItemText primary="Cafes" />
               </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
+            </ListItem> */}
+            {/* <ListItem disablePadding>
               <ListItemButton
                 component={Link}
                 to="/beverages"
@@ -58,14 +58,59 @@ const Sidebar: React.FC<SidebarProps> = ({}) => {
               >
                 <ListItemText primary="Beverages" />
               </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
+            </ListItem> */}
+            {/* <ListItem disablePadding>
               <ListItemButton
                 component={Link}
                 to="/employees"
                 selected={location.pathname === "/employees"}
               >
                 <ListItemText primary="Employees" />
+              </ListItemButton>
+            </ListItem> */}
+            <ListItem disablePadding>
+              <ListItemButton
+                component={Link}
+                to="/amenities"
+                selected={location.pathname === "/amenities"}
+              >
+                <ListItemText primary="Amenities" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton
+                component={Link}
+                to="/categories"
+                selected={location.pathname === "/categories"}
+              >
+                <ListItemText primary="Categories" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton
+                component={Link}
+                to="/conditions"
+                selected={location.pathname === "/conditions"}
+              >
+                <ListItemText primary="Conditions" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton
+                component={Link}
+                to="/posts"
+                selected={location.pathname === "/posts"}
+              >
+                <ListItemText primary="Posts" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton
+                component={Link}
+                to="/users"
+                selected={location.pathname === "/users"}
+              >
+                <ListItemText primary="Users" />
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>

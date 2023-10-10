@@ -9,10 +9,9 @@ import { BrowserRouter } from "react-router-dom";
 import { Global, css } from "@emotion/react";
 import { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
-import { fetchLocationListRequest } from "./store/slices/locationSlice";
 import { useDispatch } from "react-redux";
-import { fetchCafeListRequest } from "./store/slices/cafeSlice";
-import { fetchEmployeeListRequest } from "./store/slices/employeeSlice";
+import { fetchUserListRequest } from "./store/slices/userSlice";
+import { fetchPostListRequest } from "./store/slices/postSlice";
 
 const GlobalStyles = css`
   .ag-root {
@@ -24,15 +23,14 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchEmployeeListRequest({}));
-    dispatch(fetchLocationListRequest());
-    dispatch(fetchCafeListRequest({}));
+    dispatch(fetchUserListRequest({}));
+    dispatch(fetchPostListRequest({}));
   }, []);
 
   return (
     <BrowserRouter>
       <Box sx={{ display: "flex", flex: 1, width: "100%", height: "100%" }}>
-        <Toaster toastOptions={{ duration: 2000 }} />
+        <Toaster toastOptions={{ duration: 5000, position: "top-right" }} />
         <Global styles={GlobalStyles} />
         <Header />
         <Sidebar />

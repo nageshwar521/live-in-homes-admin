@@ -19,11 +19,30 @@ const StyledFormControlLabel = styled(FormControlLabel)`
   margin-left: 0 !important;
 `;
 
-export interface RadioInputProps extends InputProps {
-  fieldWrapperClass?: string;
+interface RadioItem {
+  label: string;
+  name?: string;
+  value: string;
+  data?: any;
 }
 
-export const RadioInput = ({ name, label, fieldWrapperClass }: InputProps) => {
+export interface RadioInputProps extends InputProps {
+  label: string;
+  fieldWrapperClass?: string;
+  options?: RadioItem[];
+}
+
+const defaultOptions: RadioItem[] = [
+  { label: "Male", value: "male" },
+  { label: "Female", value: "female" },
+];
+
+export const RadioInput = ({
+  name,
+  label,
+  fieldWrapperClass,
+  options = defaultOptions,
+}: RadioInputProps) => {
   const { control } = useFormContext();
 
   const controller: UseControllerReturn = useController({
@@ -34,7 +53,7 @@ export const RadioInput = ({ name, label, fieldWrapperClass }: InputProps) => {
   return (
     <FieldWrapper className={fieldWrapperClass}>
       <FormControl fullWidth>
-        <FormLabel>Gender</FormLabel>
+        <FormLabel>{label}</FormLabel>
         <FormControlLabel
           label={""}
           control={
@@ -46,12 +65,16 @@ export const RadioInput = ({ name, label, fieldWrapperClass }: InputProps) => {
               value={controller.field.value}
               ref={controller.field.ref}
             >
-              <StyledFormControlLabel
-                value="female"
-                control={<Radio />}
-                label="Female"
-              />
-              <FormControlLabel value="male" control={<Radio />} label="Male" />
+              {options.map((option: RadioItem) => {
+                return (
+                  <StyledFormControlLabel
+                    key={option.value}
+                    value={option.value}
+                    control={<Radio />}
+                    label={option.label}
+                  />
+                );
+              })}
             </RadioGroup>
           }
         />

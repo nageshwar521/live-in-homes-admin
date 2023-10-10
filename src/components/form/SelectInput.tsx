@@ -17,6 +17,8 @@ import FieldWrapper from "./FieldWrapper";
 export interface SelectInputOption {
   value: string;
   title: string;
+  hintText?: string;
+  data?: any;
 }
 
 export interface SelectInputProps extends InputProps {
@@ -38,7 +40,7 @@ export const SelectInput = ({
     control,
   });
 
-  console.log("select", control);
+  // console.log("select", control);
 
   return (
     <FieldWrapper className={fieldWrapperClass}>

@@ -1,5 +1,11 @@
 import get from "lodash/get";
-import { CafeItem, CategoryItem, LocationItem } from "../store/types";
+import {
+  AmenityItem,
+  CafeItem,
+  CategoryItem,
+  ConditionItem,
+  LocationItem,
+} from "../store/types";
 
 export const getLocationsDropdownList = (locations: LocationItem[] = []) => {
   return locations.map((locationItem: LocationItem) => {
@@ -21,11 +27,43 @@ export const getCafesDropdownList = (cafes: CafeItem[] = []) => {
   });
 };
 
+export const getAmenitiesDropdownList = (amenities: AmenityItem[] = []) => {
+  return amenities.map((amenityItem: AmenityItem) => {
+    return {
+      value: amenityItem.id || "",
+      title: amenityItem.amenity_name,
+      hintText: amenityItem.amenity_description,
+      data: amenityItem,
+    };
+  });
+};
+
+export const getConditionsDropdownList = (conditions: ConditionItem[] = []) => {
+  return conditions.map((conditionItem: ConditionItem) => {
+    return {
+      value: conditionItem.id || "",
+      title: conditionItem.condition_name,
+      hintText: conditionItem.condition_description,
+      data: conditionItem,
+    };
+  });
+};
+
+export const getRoomtypesDropdownList = () => {
+  const roomTypes = [
+    { value: "hdb", title: "HDB" },
+    { value: "condo", title: "Condo" },
+    { value: "landed_house", title: "Landed House" },
+  ];
+
+  return roomTypes;
+};
+
 export const getCategoriesDropdownList = (categories: CategoryItem[] = []) => {
   return categories.map((categoryItem: CategoryItem) => {
     return {
-      value: categoryItem?.id || "",
-      title: `${categoryItem.name}, ${get(categoryItem, "location.name")}`,
+      value: categoryItem.id || "",
+      title: categoryItem.category_name,
       data: categoryItem,
     };
   });
@@ -94,6 +132,22 @@ export const generateEmployeeFormData = ({
   };
 };
 
+export const generateUserFormData = ({
+  userDetails = {},
+}: {
+  userDetails?: any;
+}) => {
+  return {
+    id: get(userDetails, "id"),
+    first_name: get(userDetails, "name"),
+    last_name: get(userDetails, "description"),
+    phone_number: get(userDetails, "phone_number"),
+    gender: get(userDetails, "gender"),
+    address: get(userDetails, "address"),
+    email_address: get(userDetails, "email_address"),
+  };
+};
+
 export const generateBranchFormData = ({
   branchDetails = {},
 }: {
@@ -101,13 +155,44 @@ export const generateBranchFormData = ({
 }) => {
   return {
     id: get(branchDetails, "id"),
-    first_name: get(branchDetails, "name"),
-    last_name: get(branchDetails, "description"),
-    phone_number: get(branchDetails, "phone_number"),
-    gender: get(branchDetails, "gender"),
-    address: get(branchDetails, "address"),
-    start_date: get(branchDetails, "start_date"),
-    email_address: get(branchDetails, "email_address"),
+    branch_name: get(branchDetails, "branch_name"),
+    branch_descripton: get(branchDetails, "branch_descripton"),
+  };
+};
+
+export const generateAmenityFormData = ({
+  amenityDetails = {},
+}: {
+  amenityDetails?: any;
+}) => {
+  return {
+    id: get(amenityDetails, "id"),
+    amenity_name: get(amenityDetails, "amenity_name"),
+    amenity_descripton: get(amenityDetails, "amenity_descripton"),
+  };
+};
+
+export const generateCategoryFormData = ({
+  categoryDetails = {},
+}: {
+  categoryDetails?: any;
+}) => {
+  return {
+    id: get(categoryDetails, "id"),
+    category_name: get(categoryDetails, "category_name"),
+    category_descripton: get(categoryDetails, "category_descripton"),
+  };
+};
+
+export const generateConditionFormData = ({
+  conditionDetails = {},
+}: {
+  conditionDetails?: any;
+}) => {
+  return {
+    id: get(conditionDetails, "id"),
+    condition_name: get(conditionDetails, "condition_name"),
+    condition_descripton: get(conditionDetails, "condition_descripton"),
   };
 };
 
@@ -125,5 +210,28 @@ export const generateDrinkFormData = ({
     address: get(drinkDetails, "address"),
     start_date: get(drinkDetails, "start_date"),
     email_address: get(drinkDetails, "email_address"),
+  };
+};
+
+export const generatePostFormData = ({
+  postDetails = {},
+}: {
+  postDetails?: any;
+}) => {
+  return {
+    id: get(postDetails, "id", ""),
+    title: get(postDetails, "title", ""),
+    description: get(postDetails, "description", ""),
+    phone_number: get(postDetails, "phone_number", ""),
+    address: get(postDetails, "address", ""),
+    pincode: get(postDetails, "pincode", 0),
+    rent: get(postDetails, "rent", 0),
+    status: get(postDetails, "status", ""),
+    avail_from: get(postDetails, "avail_from", ""),
+    room_type: get(postDetails, "room_type", ""),
+    amenities: get(postDetails, "amenities", ""),
+    categories: get(postDetails, "categories", ""),
+    conditions: get(postDetails, "conditions", ""),
+    user_id: get(postDetails, "user_id", ""),
   };
 };

@@ -22,6 +22,16 @@ export const employeeSchema = yup.object().shape({
   email_address: yup.string().email().required().label("Email Address"),
 });
 
+export const userSchema = yup.object().shape({
+  first_name: yup.string().required().min(2).max(120).label("First Name"),
+  last_name: yup.string().required().min(2).max(120).label("Last Name"),
+  phone_number: yup.string().required().phone().label("Phone Number"),
+  gender: yup.string().label("Gender"),
+  address: yup.string().label("Address"),
+  role: yup.string().label("Role"),
+  email_address: yup.string().email().required().label("Email Address"),
+});
+
 export const drinkSchema = yup.object().shape({
   first_name: yup.string().required().min(2).max(120).label("First Name"),
   last_name: yup.string().required().min(2).max(120).label("Last Name"),
@@ -42,4 +52,51 @@ export const branchSchema = yup.object().shape({
   address: yup.string().label("Address"),
   role: yup.string().label("Role"),
   email_address: yup.string().email().required().label("Email Address"),
+});
+
+export const amenitySchema = yup.object().shape({
+  amenity_name: yup.string().required().min(2).max(120).label("Amenity Name"),
+  amenity_description: yup
+    .string()
+    .min(2)
+    .max(120)
+    .label("Amenity Description"),
+});
+
+export const categorySchema = yup.object().shape({
+  category_name: yup.string().required().min(2).max(120).label("Category Name"),
+  category_description: yup
+    .string()
+    .min(2)
+    .max(120)
+    .label("Category Description"),
+});
+
+export const conditionSchema = yup.object().shape({
+  condition_name: yup
+    .string()
+    .required()
+    .min(2)
+    .max(120)
+    .label("Condition Name"),
+  condition_description: yup
+    .string()
+    .min(2)
+    .max(120)
+    .label("Condition Description"),
+});
+
+export const postSchema = yup.object().shape({
+  title: yup.string().required().min(2).max(120).label("Title"),
+  description: yup.string().min(2).max(120).label("Description"),
+  phone_number: yup.string().label("Phone Number"),
+  pincode: yup.string().label("Pincode"),
+  address: yup.string().required().label("Address"),
+  rent: yup.string().required().label("Rent"),
+  status: yup.string().required().label("Status"),
+  avail_from: yup.string().required().label("Availability"),
+  room_type: yup.string().required().label("Room Type"),
+  amenities: yup.string().label("Amenities"),
+  categories: yup.string().label("Categories"),
+  conditions: yup.string().label("Conditions"),
 });

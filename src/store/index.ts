@@ -8,17 +8,27 @@ import rootSaga from "./sagas/rootSaga";
 import createSagaMiddleware from "redux-saga";
 import { cafeSlice } from "./slices/cafeSlice";
 import { employeeSlice } from "./slices/employeeSlice";
+import { userSlice } from "./slices/userSlice";
 import { locationSlice } from "./slices/locationSlice";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 import { drinkSlice } from "./slices/drinkSlice";
 import { branchSlice } from "./slices/branchSlice";
+import { amenitySlice } from "./slices/amenitySlice";
+import { conditionSlice } from "./slices/conditionSlice";
+import { categorySlice } from "./slices/categorySlice";
+import { postSlice } from "./slices/postSlice";
 
 const rootReducer = combineReducers({
-  cafes: cafeSlice.reducer,
-  employees: employeeSlice.reducer,
-  locations: locationSlice.reducer,
-  drinks: drinkSlice.reducer,
+  amenities: amenitySlice.reducer,
   branches: branchSlice.reducer,
+  cafes: cafeSlice.reducer,
+  categories: categorySlice.reducer,
+  conditions: conditionSlice.reducer,
+  drinks: drinkSlice.reducer,
+  locations: locationSlice.reducer,
+  employees: employeeSlice.reducer,
+  posts: postSlice.reducer,
+  users: userSlice.reducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();

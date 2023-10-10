@@ -34,14 +34,26 @@ export interface EmployeeItem {
   password?: string;
 }
 
+export interface UserItem {
+  first_name: string;
+  last_name: string;
+  phone_number: string;
+  gender: string;
+  address?: string;
+  role?: string;
+  email_address: string;
+  password?: string;
+}
+
 export interface LocationItem {
   id: string;
   name: string;
 }
 
 export interface CategoryItem {
-  id: string;
-  name: string;
+  id?: string;
+  category_name: string;
+  category_description: string;
 }
 
 export interface BranchItem {
@@ -68,4 +80,35 @@ export interface DrinkItem {
   discountType?: string;
   quantity?: number;
   units?: string;
+}
+
+export interface AmenityItem {
+  id?: string;
+  amenity_name: string;
+  amenity_description: string;
+}
+
+export interface ConditionItem {
+  id?: string;
+  condition_name: string;
+  condition_description: string;
+}
+
+export interface PostItem {
+  id?: string;
+  title: string;
+  photos: string;
+  videos: string;
+  description: string;
+  phone_number: string;
+  address: string;
+  pincode: number;
+  rent: number;
+  status: string;
+  avail_from: string;
+  room_type: string;
+  amenities: string;
+  conditions: string;
+  categories: string;
+  user_id?: string;
 }
