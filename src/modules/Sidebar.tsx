@@ -8,7 +8,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
-import { drawerWidth } from "../constants";
+import { DRAWER_WIDTH } from "../constants";
 import { Link, useLocation, useParams } from "react-router-dom";
 
 interface SidebarProps {}
@@ -18,12 +18,15 @@ const Sidebar: React.FC<SidebarProps> = ({}) => {
   return (
     <Box
       component="nav"
-      sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+      sx={{ width: { sm: DRAWER_WIDTH }, flexShrink: { sm: 0 } }}
     >
       <Drawer
         sx={{
           display: { xs: "block" },
-          "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
+          "& .MuiDrawer-paper": {
+            boxSizing: "border-box",
+            width: DRAWER_WIDTH,
+          },
         }}
         variant="permanent"
         open

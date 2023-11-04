@@ -1,13 +1,13 @@
 import { AppBar, Toolbar, Typography } from "@mui/material";
-import { drawerWidth } from "../constants";
+import { DRAWER_WIDTH } from "../constants";
 
 const Header = () => {
   return (
     <AppBar
       position="fixed"
       sx={{
-        width: { sm: `calc(100% - ${drawerWidth}px)` },
-        ml: { sm: `${drawerWidth}px` },
+        width: { sm: `calc(100% - ${DRAWER_WIDTH}px)` },
+        ml: { sm: `${DRAWER_WIDTH}px` },
       }}
     >
       <Toolbar>

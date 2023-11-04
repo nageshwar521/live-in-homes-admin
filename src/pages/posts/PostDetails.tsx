@@ -23,12 +23,13 @@ import {
   getAmenitiesDropdownList,
   getCategoriesDropdownList,
   getConditionsDropdownList,
+  getPostStatustypesDropdownList,
   getRoomtypesDropdownList,
 } from "../../utils/common";
 import { fetchAmenityListRequest } from "../../store/slices/amenitySlice";
 import { fetchCategoryListRequest } from "../../store/slices/categorySlice";
 import { fetchConditionListRequest } from "../../store/slices/conditionSlice";
-import { DATE_API_FORMAT } from "../../constants";
+import { DATE_API_FORMAT, POST_STATUS } from "../../constants";
 
 export const defaultPostValues: PostItem = {
   title: "",
@@ -37,7 +38,7 @@ export const defaultPostValues: PostItem = {
   description: "",
   phone_number: "",
   address: "",
-  pincode: 0,
+  pincode: "",
   rent: 0,
   status: "",
   avail_from: "",
@@ -45,7 +46,7 @@ export const defaultPostValues: PostItem = {
   categories: "",
   amenities: "",
   conditions: "",
-  user_id: uniqueId(),
+  user_id: "",
 };
 
 const PostDetails: React.FC<PostDetailsProps> = ({
@@ -72,6 +73,7 @@ const PostDetails: React.FC<PostDetailsProps> = ({
   });
 
   // console.log(form, "form");
+  const postStatusOptions = getPostStatustypesDropdownList();
 
   useEffect(() => {
     dispatch(fetchPostListRequest({}));
@@ -101,20 +103,20 @@ const PostDetails: React.FC<PostDetailsProps> = ({
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(submitForm)}>
         <div>
-          <TextInput name="title" label="Title*" placeholder="Enter Title" />
+          <TextInput name="title" label="Title" placeholder="Enter Title" />
           <TextInput
             name="description"
-            label="Description*"
+            label="Description"
             placeholder="Enter Description"
           />
           <TextInput
             name="pincode"
-            label="Pin Code*"
+            label="Pin Code"
             placeholder="Enter Pin Code"
           />
           <TextInput
             name="phone_number"
-            label="Phone Number*"
+            label="Phone Number"
             placeholder="Enter Phone Number"
           />
           <TextInput
@@ -122,15 +124,12 @@ const PostDetails: React.FC<PostDetailsProps> = ({
             label="Address"
             placeholder="Enter Address"
           />
-          <TextInput name="rent" label="Rent*" placeholder="Enter Rent" />
+          <TextInput name="rent" label="Rent" placeholder="Enter Rent" />
           <RadioInput
             name="status"
-            label="Status*"
+            label="Status"
             placeholder="Enter Status"
-            options={[
-              { label: "Open", value: "open" },
-              { label: "Closed", value: "closed" },
-            ]}
+            options={postStatusOptions}
           />
           <DateInput
             name="avail_from"
@@ -143,25 +142,25 @@ const PostDetails: React.FC<PostDetailsProps> = ({
           />
           <SelectInput
             name="room_type"
-            label="Room Type*"
+            label="Room Type"
             placeholder="Select Room Type"
             options={roomTypeOptions}
           />
           <SelectInput
             name="amenities"
-            label="Amenities*"
+            label="Amenities"
             placeholder="Select Amenities"
             options={amenityOptions}
           />
           <SelectInput
             name="categories"
-            label="Categories*"
+            label="Categories"
             placeholder="Select Categories"
             options={categoryOptions}
           />
           <SelectInput
             name="conditions"
-            label="Conditions*"
+            label="Conditions"
             placeholder="Select Conditions"
             options={conditionOptions}
           />

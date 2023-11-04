@@ -100,3 +100,23 @@ export const postSchema = yup.object().shape({
   categories: yup.string().label("Categories"),
   conditions: yup.string().label("Conditions"),
 });
+
+export const loginSchema = yup.object().shape({
+  username: yup.string().required().label("Username"),
+  password: yup.string().required().label("Password"),
+});
+
+export const forgotPasswordSchema = yup.object().shape({
+  username: yup.string().required().label("Email"),
+});
+
+export const resetPasswordSchema = yup.object().shape({
+  password: yup.string().required().label("Password"),
+  confirmPassword: yup.string().required().label("Confirm Password"),
+});
+
+export const signupSchema = yup.object().shape({
+  username: yup.string().required().label("Username"),
+  password: yup.string().required().label("Password"),
+  confirmPassword: yup.string().required().label("Confirm Password"),
+});

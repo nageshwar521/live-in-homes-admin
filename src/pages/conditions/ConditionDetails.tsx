@@ -80,12 +80,12 @@ const ConditionDetails: React.FC<ConditionDetailsProps> = ({
         <div>
           <TextInput
             name="condition_name"
-            label="Name*"
+            label="Name"
             placeholder="Enter Name"
           />
           <TextInput
             name="condition_description"
-            label="Description*"
+            label="Description"
             placeholder="Enter Description"
           />
         </div>

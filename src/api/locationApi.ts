@@ -1,9 +1,5 @@
 import axios from "axios";
 
-export const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
-
-axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
-
 export const getLocationListApi = async () => {
   try {
     const response = await axios.get(`${apiBaseUrl}/locations`);
@@ -15,8 +11,14 @@ export const getLocationListApi = async () => {
 };
 
 export const addLocationApi = async (data: any) => {
+  const formData = new FormData();
+  let newData = data;
+  if (data.images) {
+    formData.append("images", data.images);
+    newData = { ...data, images: formData };
+  }
   try {
-    const response = await axios.post(`${apiBaseUrl}/locations`, data);
+    const response = await axios.post(`${apiBaseUrl}/locations`, newData);
     return response;
   } catch (error) {
     console.log("error:", error);

@@ -22,6 +22,7 @@ import FlexGrow from "../../components/FlexGrow";
 import styled from "@emotion/styled";
 import { RowDetailsInterface } from "./types";
 import { AmenityItem } from "../../store/types";
+import { fetchCategoryListRequest } from "../../store/slices/categorySlice";
 
 const ImageWrapper = styled.div`
   display: flex;
@@ -58,6 +59,7 @@ const AmenityList = () => {
 
   useEffect(() => {
     dispatch(fetchAmenityListRequest({}));
+    dispatch(fetchCategoryListRequest({}));
   }, []);
 
   const handleGridReady = (params: any) => {
@@ -80,7 +82,8 @@ const AmenityList = () => {
       sortable: true,
       unSortIcon: true,
     },
-    { field: "amenity_desciption", headerName: "Description" },
+    { field: "amenity_description", headerName: "Description" },
+    { field: "amenity_category", headerName: "Category" },
     {
       field: "",
       cellRenderer: ActionButtons,

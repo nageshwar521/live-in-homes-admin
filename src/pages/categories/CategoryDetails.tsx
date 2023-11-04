@@ -4,12 +4,12 @@ import {
   UseFormReturn,
   FormProvider,
 } from "react-hook-form";
-import { AmenityItem } from "../../store/types";
+import { CategoryItem } from "../../store/types";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { amenitySchema } from "../../utils/validation";
+import { categorySchema } from "../../utils/validation";
 import React, { useEffect, useState } from "react";
 import { get, noop } from "lodash";
-import { AmenityDetailsProps } from "./types";
+import { CategoryDetailsProps } from "./types";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { TextInput } from "../../components/form/TextInput";
 import { SelectInput } from "../../components/form/SelectInput";
@@ -17,12 +17,12 @@ import BaseButton from "../../components/buttons/BaseButton";
 import Box from "@mui/material/Box";
 import FileUpload from "../../components/form/FileUpload";
 
-const defaultValues: AmenityItem = {
-  amenity_name: "",
-  amenity_description: "",
+const defaultValues: CategoryItem = {
+  category_name: "",
+  category_description: "",
 };
 
-const AmenityDetails: React.FC<AmenityDetailsProps> = ({
+const CategoryDetails: React.FC<CategoryDetailsProps> = ({
   onClose = noop,
   rowDetails = {},
   mode = "create",
@@ -30,16 +30,18 @@ const AmenityDetails: React.FC<AmenityDetailsProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const {
-    amenityList,
+    categoryList,
     errorResponse,
-    status: addAmenityStatus,
-  } = useAppSelector((state) => state.amenities);
-  console.log(addAmenityStatus, "addAmenityStatus");
+    status: addCategoryStatus,
+  } = useAppSelector((state) => state.categories);
+  console.log(addCategoryStatus, "addCategoryStatus");
   const formData = get(rowDetails, "formData");
-  const form: UseFormReturn<AmenityItem, UseFormProps> = useForm<AmenityItem>({
-    values: formData,
-    resolver: yupResolver(amenitySchema),
-  });
+  const form: UseFormReturn<CategoryItem, UseFormProps> = useForm<CategoryItem>(
+    {
+      values: formData,
+      resolver: yupResolver(categorySchema),
+    }
+  );
 
   // console.log(form, "form");
 
@@ -52,12 +54,12 @@ const AmenityDetails: React.FC<AmenityDetailsProps> = ({
   };
 
   useEffect(() => {
-    if (addAmenityStatus === "addAmenity") {
+    if (addCategoryStatus === "addCategory") {
       resetForm();
     }
-  }, [addAmenityStatus]);
+  }, [addCategoryStatus]);
 
-  const submitForm = (data: AmenityItem) => {
+  const submitForm = (data: CategoryItem) => {
     console.log(data, "data");
     onSubmit(data);
   };
@@ -78,13 +80,13 @@ const AmenityDetails: React.FC<AmenityDetailsProps> = ({
       <form onSubmit={form.handleSubmit(submitForm, onErrors)}>
         <div>
           <TextInput
-            name="amenity_name"
-            label="Name*"
+            name="category_name"
+            label="Name"
             placeholder="Enter Name"
           />
           <TextInput
-            name="amenity_description"
-            label="Description*"
+            name="category_description"
+            label="Description"
             placeholder="Enter Description"
           />
         </div>
@@ -101,4 +103,4 @@ const AmenityDetails: React.FC<AmenityDetailsProps> = ({
   );
 };
 
-export default AmenityDetails;
+export default CategoryDetails;

@@ -1,8 +1,5 @@
 import axios from "axios";
-
-export const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
-
-axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
+import { apiBaseUrl } from "../constants";
 
 export const getBranchListApi = async (params: any) => {
   try {
@@ -17,8 +14,11 @@ export const getBranchListApi = async (params: any) => {
 
 export const addBranchApi = async (data: any) => {
   const formData = new FormData();
-  formData.append("file", data.logoUrl);
-  const newData = { ...data, logoUrl: formData };
+  let newData = data;
+  if (data.images) {
+    formData.append("images", data.images);
+    newData = { ...data, images: formData };
+  }
   try {
     const response = await axios.post(`${apiBaseUrl}/branches`, newData);
     return response;

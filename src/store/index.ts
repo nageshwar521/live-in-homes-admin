@@ -6,6 +6,7 @@ import {
 } from "@reduxjs/toolkit";
 import rootSaga from "./sagas/rootSaga";
 import createSagaMiddleware from "redux-saga";
+import { authSlice } from "./slices/authSlice";
 import { cafeSlice } from "./slices/cafeSlice";
 import { employeeSlice } from "./slices/employeeSlice";
 import { userSlice } from "./slices/userSlice";
@@ -20,6 +21,7 @@ import { postSlice } from "./slices/postSlice";
 
 const rootReducer = combineReducers({
   amenities: amenitySlice.reducer,
+  auth: authSlice.reducer,
   branches: branchSlice.reducer,
   cafes: cafeSlice.reducer,
   categories: categorySlice.reducer,

@@ -6,6 +6,12 @@ import {
   ConditionItem,
   LocationItem,
 } from "../store/types";
+import { POST_STATUS, ROOM_TYPES, apiBaseUrl } from "../constants";
+import axios from "axios";
+
+export const loadApiDefaults = () => {
+  axios.defaults.baseURL = apiBaseUrl;
+};
 
 export const getLocationsDropdownList = (locations: LocationItem[] = []) => {
   return locations.map((locationItem: LocationItem) => {
@@ -50,13 +56,11 @@ export const getConditionsDropdownList = (conditions: ConditionItem[] = []) => {
 };
 
 export const getRoomtypesDropdownList = () => {
-  const roomTypes = [
-    { value: "hdb", title: "HDB" },
-    { value: "condo", title: "Condo" },
-    { value: "landed_house", title: "Landed House" },
-  ];
+  return ROOM_TYPES;
+};
 
-  return roomTypes;
+export const getPostStatustypesDropdownList = () => {
+  return POST_STATUS;
 };
 
 export const getCategoriesDropdownList = (categories: CategoryItem[] = []) => {
@@ -234,4 +238,16 @@ export const generatePostFormData = ({
     conditions: get(postDetails, "conditions", ""),
     user_id: get(postDetails, "user_id", ""),
   };
+};
+
+export const getCategoryById = ({
+  categories = [],
+  categoryId,
+}: {
+  categories: CategoryItem[];
+  categoryId: string;
+}) => {
+  return categories.find((categoryItem: CategoryItem) => {
+    return categoryItem.id === categoryId;
+  });
 };

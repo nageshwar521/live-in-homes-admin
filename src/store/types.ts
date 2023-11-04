@@ -102,7 +102,7 @@ export interface PostItem {
   description: string;
   phone_number: string;
   address: string;
-  pincode: number;
+  pincode: string;
   rent: number;
   status: string;
   avail_from: string;

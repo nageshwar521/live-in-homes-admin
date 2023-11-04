@@ -12,15 +12,18 @@ import { get, noop } from "lodash";
 import { AmenityDetailsProps } from "./types";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { fetchLocationListRequest } from "../../store/slices/locationSlice";
-import { getLocationsDropdownList } from "../../utils/common";
+import {
+  getCategoriesDropdownList,
+  getLocationsDropdownList,
+} from "../../utils/common";
 import { TextInput } from "../../components/form/TextInput";
 import { SelectInput } from "../../components/form/SelectInput";
 import BaseButton from "../../components/buttons/BaseButton";
 import Box from "@mui/material/Box";
-import FileUpload from "../../components/form/FileUpload";
 
 const defaultValues: AmenityItem = {
-  name: "",
+  amenity_name: "",
+  amenity_description: "",
 };
 
 const AmenityDetails: React.FC<AmenityDetailsProps> = ({
@@ -35,6 +38,7 @@ const AmenityDetails: React.FC<AmenityDetailsProps> = ({
     errorResponse,
     status: addAmenityStatus,
   } = useAppSelector((state) => state.amenities);
+  const { categoryList } = useAppSelector((state) => state.categories);
   console.log(addAmenityStatus, "addAmenityStatus");
   const formData = get(rowDetails, "formData");
   const form: UseFormReturn<AmenityItem, UseFormProps> = useForm<AmenityItem>({
@@ -53,10 +57,12 @@ const AmenityDetails: React.FC<AmenityDetailsProps> = ({
   };
 
   useEffect(() => {
-    if (addAmenityStatus === "addAmenity") {
+    if (addAmenityStatus === "success") {
       resetForm();
     }
   }, [addAmenityStatus]);
+
+  const categoryOptions = getCategoriesDropdownList(categoryList);
 
   const submitForm = (data: AmenityItem) => {
     console.log(data, "data");
@@ -80,13 +86,19 @@ const AmenityDetails: React.FC<AmenityDetailsProps> = ({
         <div>
           <TextInput
             name="amenity_name"
-            label="Name*"
+            label="Name"
             placeholder="Enter Name"
           />
           <TextInput
             name="amenity_description"
-            label="Description*"
+            label="Description"
             placeholder="Enter Description"
+          />
+          <SelectInput
+            name="amenity_category"
+            label="Category"
+            placeholder="Select Category"
+            options={categoryOptions}
           />
         </div>
         <Box display="flex" flexDirection="row" justifyContent="flex-end">

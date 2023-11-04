@@ -93,15 +93,15 @@ const CafeDetails: React.FC<BranchDetailsProps> = ({
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(submitForm, onErrors)}>
         <div>
-          <TextInput name="name" label="Name*" placeholder="Enter Name" />
+          <TextInput name="name" label="Name" placeholder="Enter Name" />
           <TextInput
             name="description"
-            label="Description*"
+            label="Description"
             placeholder="Enter Description"
           />
           <TextInput
             name="phone_number"
-            label="Phone Number*"
+            label="Phone Number"
             placeholder="Enter Phone Number"
           />
           <TextInput
@@ -111,7 +111,7 @@ const CafeDetails: React.FC<BranchDetailsProps> = ({
           />
           <SelectInput
             name="location"
-            label="Location*"
+            label="Location"
             placeholder="Select Location"
             options={locationOptions}
           />

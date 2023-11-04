@@ -89,22 +89,22 @@ const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({
         <div>
           <TextInput
             name="first_name"
-            label="First Name*"
+            label="First Name"
             placeholder="Enter First Name"
           />
           <TextInput
             name="last_name"
-            label="Last Name*"
+            label="Last Name"
             placeholder="Enter Last Name"
           />
           <TextInput
             name="email_address"
-            label="Email Address*"
+            label="Email Address"
             placeholder="Enter Email Address"
           />
           <TextInput
             name="phone_number"
-            label="Phone Number*"
+            label="Phone Number"
             placeholder="Enter Phone Number"
           />
           <TextInput
@@ -120,7 +120,7 @@ const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({
           />
           <SelectInput
             name="cafe"
-            label="Cafe*"
+            label="Cafe"
             placeholder="Select Cafe"
             options={cafeOptions}
           />

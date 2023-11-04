@@ -82,7 +82,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
                       InputLabelProps={{
                         shrink: true,
                       }}
-                      inputProps={{ accept: "image/*" }}
+                      inputProps={{ accept: "image/" }}
                       type="file"
                       hidden
                       id="logoUrl"

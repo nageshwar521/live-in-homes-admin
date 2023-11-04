@@ -79,16 +79,16 @@ const DrinkDetails: React.FC<DrinkDetailsProps> = ({
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(submitForm)}>
         <div>
-          <TextInput name="name" label="Name*" placeholder="Enter Name" />
+          <TextInput name="name" label="Name" placeholder="Enter Name" />
           <TextInput
             name="description"
-            label="Description*"
+            label="Description"
             placeholder="Enter Description"
           />
-          <TextInput name="price" label="Price*" placeholder="Enter Price" />
+          <TextInput name="price" label="Price" placeholder="Enter Price" />
           <SelectInput
             name="category"
-            label="Category*"
+            label="Category"
             placeholder="Select Category"
             options={categoryOptions}
           />

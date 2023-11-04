@@ -1,8 +1,5 @@
 import axios from "axios";
-
-export const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
-
-axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
+import { apiBaseUrl } from "../constants";
 
 export const getUserListApi = async (params: any) => {
   try {
@@ -16,8 +13,14 @@ export const getUserListApi = async (params: any) => {
 };
 
 export const addUserApi = async (data: any) => {
+  const formData = new FormData();
+  let newData = data;
+  if (data.images) {
+    formData.append("images", data.images);
+    newData = { ...data, images: formData };
+  }
   try {
-    const response = await axios.post(`${apiBaseUrl}/users`, data);
+    const response = await axios.post(`${apiBaseUrl}/users`, newData);
     return response;
   } catch (error) {
     console.log("error:", error);
