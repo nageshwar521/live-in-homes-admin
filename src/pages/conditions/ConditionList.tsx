@@ -71,12 +71,12 @@ const ConditionList = () => {
 
   const colDef: ColDef[] = [
     {
-      field: "category_name",
+      field: "condition_name",
       headerName: "Name",
       sortable: true,
       unSortIcon: true,
     },
-    { field: "category_description", headerName: "Description" },
+    { field: "condition_description", headerName: "Description" },
     {
       field: "",
       cellRenderer: ActionButtons,

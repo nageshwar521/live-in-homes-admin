@@ -43,6 +43,7 @@ export interface UserItem {
   role?: string;
   email_address: string;
   password?: string;
+  username?: string;
 }
 
 export interface LocationItem {
@@ -103,12 +104,12 @@ export interface PostItem {
   phone_number: string;
   address: string;
   pincode: string;
-  rent: number;
+  rent: string;
   status: string;
   avail_from: string;
   room_type: string;
-  amenities: string;
-  conditions: string;
-  categories: string;
+  amenities: string[];
+  conditions: string[];
+  category: string;
   user_id?: string;
 }

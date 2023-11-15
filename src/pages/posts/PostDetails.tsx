@@ -14,7 +14,6 @@ import { fetchPostListRequest } from "../../store/slices/postSlice";
 import { TextInput } from "../../components/form/TextInput";
 import { SelectInput } from "../../components/form/SelectInput";
 import BaseButton from "../../components/buttons/BaseButton";
-import Row from "../../components/layout/Row";
 import Box from "@mui/material/Box";
 import { RadioInput } from "../../components/form/RadioInput";
 import { DateInput } from "../../components/form/DateInput";
@@ -39,13 +38,13 @@ export const defaultPostValues: PostItem = {
   phone_number: "",
   address: "",
   pincode: "",
-  rent: 0,
+  rent: "",
   status: "",
   avail_from: "",
   room_type: "",
-  categories: "",
-  amenities: "",
-  conditions: "",
+  category: "",
+  amenities: [],
+  conditions: [],
   user_id: "",
 };
 
@@ -72,7 +71,7 @@ const PostDetails: React.FC<PostDetailsProps> = ({
     resolver: yupResolver(postSchema),
   });
 
-  // console.log(form, "form");
+  console.log(formData, "formData");
   const postStatusOptions = getPostStatustypesDropdownList();
 
   useEffect(() => {
@@ -151,11 +150,12 @@ const PostDetails: React.FC<PostDetailsProps> = ({
             label="Amenities"
             placeholder="Select Amenities"
             options={amenityOptions}
+            selectProps={{ multiple: true }}
           />
           <SelectInput
-            name="categories"
-            label="Categories"
-            placeholder="Select Categories"
+            name="category"
+            label="Category"
+            placeholder="Select Category"
             options={categoryOptions}
           />
           <SelectInput
@@ -163,6 +163,7 @@ const PostDetails: React.FC<PostDetailsProps> = ({
             label="Conditions"
             placeholder="Select Conditions"
             options={conditionOptions}
+            selectProps={{ multiple: true }}
           />
         </div>
 

@@ -10,6 +10,7 @@ import theme from "./theme.ts";
 import { Provider } from "react-redux";
 import { store } from "./store/index.ts";
 import AllRoutes from "./routes/index.tsx";
+import { Toaster } from "react-hot-toast";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -17,6 +18,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <AllRoutes />
+        <Toaster toastOptions={{ duration: 5000, position: "top-right" }} />
       </ThemeProvider>
     </Provider>
   </React.StrictMode>

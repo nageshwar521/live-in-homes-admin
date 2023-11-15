@@ -44,12 +44,12 @@ const ForgotPassword = () => {
   const [error, setError] = useState<string>("");
 
   useEffect(() => {
-    if (!forgotPasswordSuccess) {
+    if (forgotPasswordStatus === "forgot_error") {
       setError(authMessage);
-    } else if (forgotPasswordSuccess) {
-      navigate("login");
+    } else if (forgotPasswordStatus === "forgot_success") {
+      navigate("/login");
     }
-  }, [JSON.stringify(forgotPasswordStatus)]);
+  }, [forgotPasswordStatus, authMessage]);
 
   const form: UseFormReturn<ForgotPasswordFormData, UseFormProps> =
     useForm<ForgotPasswordFormData>({

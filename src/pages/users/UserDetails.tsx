@@ -42,6 +42,7 @@ const UserDetails: React.FC<UserDetailsProps> = ({
     errorResponse,
   } = useAppSelector((state) => state.users);
   const formData = get(rowDetails, "formData");
+  const isEdit = get(rowDetails, "isEdit", false);
   const form: UseFormReturn<UserItem, UseFormProps> = useForm<UserItem>({
     values: formData,
     resolver: yupResolver(userSchema),
@@ -90,6 +91,12 @@ const UserDetails: React.FC<UserDetailsProps> = ({
             name="email_address"
             label="Email Address"
             placeholder="Enter Email Address"
+            textFieldProps={{ disabled: isEdit }}
+          />
+          <TextInput
+            name="username"
+            label="Username"
+            placeholder="Enter Username"
           />
           <TextInput
             name="phone_number"

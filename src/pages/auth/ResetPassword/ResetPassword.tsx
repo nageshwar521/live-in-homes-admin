@@ -45,10 +45,12 @@ const ResetPassword = () => {
   const [error, setError] = useState<string>("");
 
   useEffect(() => {
-    if (!resetPasswordSuccess) {
+    if (resetPasswordStatus === "reset_error") {
       setError(authMessage);
+    } else if (resetPasswordStatus === "reset_success") {
+      navigate("/");
     }
-  }, [JSON.stringify(resetPasswordStatus)]);
+  }, [resetPasswordStatus, authMessage]);
 
   const form: UseFormReturn<ResetPasswordFormData, UseFormProps> =
     useForm<ResetPasswordFormData>({

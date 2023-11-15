@@ -117,7 +117,7 @@ const UserList = () => {
   };
 
   const colDef: ColDef[] = [
-    { field: "userId", headerName: "User Id" },
+    { field: "username", headerName: "Username" },
     { field: "name", headerName: "Name", sortable: true, unSortIcon: true },
     { field: "email_address", headerName: "Email Address" },
     { field: "phone_number", headerName: "Phone Number" },
@@ -168,7 +168,7 @@ const UserList = () => {
       const userDetails = generateUserFormData({
         userDetails: get(nodeItem, "data"),
       });
-      setRowDetails({ formData: userDetails, nodeItem, colDef });
+      setRowDetails({ formData: userDetails, nodeItem, colDef, isEdit: true });
     } else if (action === "delete") {
       setIsDeleteUserOpen(true);
       const userDetails = generateUserFormData({

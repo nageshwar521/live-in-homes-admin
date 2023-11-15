@@ -5,6 +5,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  SelectProps,
 } from "@mui/material";
 import {
   useController,
@@ -24,6 +25,7 @@ export interface SelectInputOption {
 export interface SelectInputProps extends InputProps {
   options: SelectInputOption[];
   fieldWrapperClass?: string;
+  selectProps?: SelectProps;
 }
 
 export const SelectInput = ({
@@ -32,6 +34,7 @@ export const SelectInput = ({
   name,
   options,
   fieldWrapperClass,
+  selectProps = {},
 }: SelectInputProps) => {
   const { control } = useFormContext();
 
@@ -40,7 +43,8 @@ export const SelectInput = ({
     control,
   });
 
-  // console.log("select", control);
+  console.log("select", control);
+  console.log("selectProps", selectProps);
 
   return (
     <FieldWrapper className={fieldWrapperClass}>
@@ -57,6 +61,7 @@ export const SelectInput = ({
           value={controller.field.value}
           ref={controller.field.ref}
           error={!!controller.fieldState.error}
+          {...selectProps}
         >
           <MenuItem value="">
             <em>None</em>

@@ -1,11 +1,10 @@
 import axios, { AxiosRequestHeaders, InternalAxiosRequestConfig } from "axios";
 import { apiBaseUrl } from "../constants";
-import { LoginFormData } from "../pages/auth/Login/types";
-import { cookies } from "../utils/cookies";
+import { getCookie } from "../utils/cookies";
 
 axios.interceptors.request.use((config: InternalAxiosRequestConfig<any>) => {
   // console.log(config);
-  const token = cookies.getCookie("authToken");
+  const token = getCookie("accessToken");
 
   if (token) {
     (config.headers as AxiosRequestHeaders).Authorization = `Bearer ${token}`;

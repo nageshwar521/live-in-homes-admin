@@ -2,7 +2,7 @@ export const DRAWER_WIDTH = 240;
 
 export const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
-export const DATE_DISPLAY_FORMAT = "DD-MM-YYYY";
+export const DATE_DISPLAY_FORMAT = "dddd, MMMM D, YYYY";
 
 export const DATE_API_FORMAT = "YYYY-MM-DD";
 

@@ -30,6 +30,9 @@ const Layout: React.FC<ILayoutProps> = ({ children, isLoggedIn = false }) => {
             sx={{
               p: 3,
               width: `calc(100% - ${DRAWER_WIDTH}px)`,
+              flexDirection: "column",
+              justifyContent: "flex-start",
+              height: "100vh",
             }}
           >
             <Toolbar />

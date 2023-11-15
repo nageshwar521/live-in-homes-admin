@@ -14,7 +14,10 @@ import BaseButton from "../../../components/buttons/BaseButton";
 import { TextInput } from "../../../components/form/TextInput";
 import { useAppSelector } from "../../../store";
 import { useNavigate } from "react-router-dom";
-import { userLoginRequest } from "../../../store/slices/authSlice";
+import {
+  resetAuthState,
+  userLoginRequest,
+} from "../../../store/slices/authSlice";
 import ErrorContainer from "../../../components/display/ErrorContainer";
 import { LoginFormData } from "./types";
 import {
@@ -37,21 +40,25 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {
-    status: authStatus,
+    status: loginStatus,
     success: loginSuccess,
     message: authMessage,
     errorResponse: authError,
-    loginResponse: authSuccess,
+    loginResponse,
   } = useAppSelector((state) => state.auth);
   const [error, setError] = useState<string>("");
 
+  console.log(loginStatus, "loginStatus");
+  console.log(loginResponse, "loginResponse");
+
   useEffect(() => {
-    if (authStatus !== "initial" && !loginSuccess) {
+    if (loginStatus === "login_error") {
       setError(authMessage);
-    } else if (loginSuccess) {
+    } else if (loginStatus === "login_success" && loginResponse.accessToken) {
+      dispatch(resetAuthState({ status: "initial" }));
       navigate("/");
     }
-  }, [JSON.stringify(authStatus)]);
+  }, [loginStatus, authMessage]);
 
   const form: UseFormReturn<LoginFormData, UseFormProps> =
     useForm<LoginFormData>({

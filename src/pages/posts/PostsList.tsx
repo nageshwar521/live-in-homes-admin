@@ -2,7 +2,6 @@ import { ColDef, ICellRendererParams } from "ag-grid-community";
 import { AgGridWrapper } from "../../components/aggrid/AgGridWrapper";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, useAppSelector } from "../../store";
-import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   addPostRequest,
@@ -13,7 +12,7 @@ import {
 import Modal from "../../components/Modal";
 import PostDetails, { defaultPostValues } from "./PostDetails";
 import ActionButtons from "../../components/aggrid/ActionButtons";
-import { generatePostFormData } from "../../utils/common";
+import { generatePostFormData, getDateDisplayFormat } from "../../utils/common";
 import { get } from "lodash";
 import Row from "../../components/layout/Row";
 import BaseButton from "../../components/buttons/BaseButton";
@@ -21,9 +20,9 @@ import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
 import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
-import { SelectChangeEvent } from "@mui/material";
 import FlexGrow from "../../components/FlexGrow";
 import { RowDetailsInterface } from "./types";
+import { DATE_DISPLAY_FORMAT } from "../../constants";
 
 dayjs.extend(duration);
 
@@ -79,6 +78,13 @@ const StartDateColumn: React.FC<ICellRendererParams> = ({ value }) => {
   return <span>{getDurationFormat(duration)}</span>;
 };
 
+const AvailabilityColumn: React.FC<ICellRendererParams> = ({ value }) => {
+  // console.log(props);
+  return (
+    <span>{getDateDisplayFormat(value, { format: DATE_DISPLAY_FORMAT })}</span>
+  );
+};
+
 const PostColumn: React.FC<ICellRendererParams> = ({ value, ...props }) => {
   return (
     <span>{`${get(value, "name", "")}, ${get(
@@ -111,8 +117,19 @@ const PostList = () => {
   };
 
   const colDef: ColDef[] = [
-    { field: "title", headerName: "Title", sortable: true, unSortIcon: true },
-    { field: "avail_from", headerName: "Availability" },
+    {
+      field: "title",
+      headerName: "Title",
+      sortable: true,
+      unSortIcon: true,
+      width: 300,
+    },
+    {
+      field: "avail_from",
+      headerName: "Availability",
+      cellRenderer: AvailabilityColumn,
+      width: 300,
+    },
     { field: "status", headerName: "Status" },
     { field: "rent", headerName: "Rent" },
     { field: "room_type", headerName: "Room Type" },
@@ -148,7 +165,13 @@ const PostList = () => {
     if (modalType === "edit") {
       handleUpdatePost({ id: rowDetails?.formData.id, data });
     } else {
-      handleAddPost(data);
+      const { amenities = [], conditions = [], ...otherData } = data;
+      const newData = {
+        ...otherData,
+        amenities: JSON.stringify(amenities),
+        conditions: JSON.stringify(conditions),
+      };
+      handleAddPost(newData);
     }
   };
   // console.log(postList, "postList");

@@ -34,7 +34,7 @@ const Signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {
-    status: authStatus,
+    status: signupStatus,
     message: authMessage,
     success: signupSuccess,
     errorResponse: authError,
@@ -45,12 +45,12 @@ const Signup = () => {
   console.log(signupSuccess, "signupSuccess");
 
   useEffect(() => {
-    if (authStatus !== "initial" && !signupSuccess) {
+    if (signupStatus === "signup_error") {
       setError(authMessage);
-    } else if (signupSuccess) {
+    } else if (signupStatus === "signup_success") {
       navigate("/");
     }
-  }, [JSON.stringify(authStatus)]);
+  }, [signupStatus, authMessage]);
 
   const form: UseFormReturn<SignupFormData, UseFormProps> =
     useForm<SignupFormData>({

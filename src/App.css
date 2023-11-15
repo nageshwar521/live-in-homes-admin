@@ -1,9 +1,0 @@
-#root {
-  width: 100%;
-  height: 100vh;
-}
-
-.ag-theme-material {
-  --ag-font-size: 17px !important;
-  --ag-font-family: "Karma" !important;
-}

@@ -1,16 +1,18 @@
-import { Navigate, useLocation } from "react-router-dom";
-import { cookies } from "../utils/cookies";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 
-const ProtectedRoute = ({ children }: any) => {
-  const isAuthenticated = cookies.getCookie("accessToken");
+interface ProtectedRouteProps {
+  isLoggedIn?: boolean;
+}
+
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
+  isLoggedIn = false,
+}) => {
   let location = useLocation();
 
-  console.log(isAuthenticated, "isAuthenticated");
-
-  if (!isAuthenticated) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
+  if (!isLoggedIn) {
+    return <Navigate to="/auth/login" state={{ from: location }} />;
   }
-  return children;
+  return <Outlet />;
 };
 
 export default ProtectedRoute;

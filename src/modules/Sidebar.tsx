@@ -39,7 +39,7 @@ const Sidebar: React.FC<SidebarProps> = ({}) => {
               <ListItemButton
                 component={Link}
                 to="/dashboard"
-                selected={location.pathname === "/dashboard"}
+                selected={["/dashboard", "/"].includes(location.pathname)}
               >
                 <ListItemText primary="Dashboard" />
               </ListItemButton>

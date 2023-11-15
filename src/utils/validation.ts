@@ -23,13 +23,14 @@ export const employeeSchema = yup.object().shape({
 });
 
 export const userSchema = yup.object().shape({
-  first_name: yup.string().required().min(2).max(120).label("First Name"),
-  last_name: yup.string().required().min(2).max(120).label("Last Name"),
+  first_name: yup.string().min(2).max(120).label("First Name").nullable(),
+  last_name: yup.string().min(2).max(120).label("Last Name").nullable(),
   phone_number: yup.string().required().phone().label("Phone Number"),
-  gender: yup.string().label("Gender"),
-  address: yup.string().label("Address"),
-  role: yup.string().label("Role"),
+  gender: yup.string().label("Gender").nullable(),
+  address: yup.string().label("Address").nullable(),
+  role: yup.string().label("Role").nullable(),
   email_address: yup.string().email().required().label("Email Address"),
+  username: yup.string().label("Username").nullable(),
 });
 
 export const drinkSchema = yup.object().shape({
@@ -56,20 +57,12 @@ export const branchSchema = yup.object().shape({
 
 export const amenitySchema = yup.object().shape({
   amenity_name: yup.string().required().min(2).max(120).label("Amenity Name"),
-  amenity_description: yup
-    .string()
-    .min(2)
-    .max(120)
-    .label("Amenity Description"),
+  amenity_description: yup.string().max(120).label("Amenity Description"),
 });
 
 export const categorySchema = yup.object().shape({
   category_name: yup.string().required().min(2).max(120).label("Category Name"),
-  category_description: yup
-    .string()
-    .min(2)
-    .max(120)
-    .label("Category Description"),
+  category_description: yup.string().max(120).label("Category Description"),
 });
 
 export const conditionSchema = yup.object().shape({
@@ -79,16 +72,12 @@ export const conditionSchema = yup.object().shape({
     .min(2)
     .max(120)
     .label("Condition Name"),
-  condition_description: yup
-    .string()
-    .min(2)
-    .max(120)
-    .label("Condition Description"),
+  condition_description: yup.string().label("Condition Description"),
 });
 
 export const postSchema = yup.object().shape({
   title: yup.string().required().min(2).max(120).label("Title"),
-  description: yup.string().min(2).max(120).label("Description"),
+  description: yup.string().max(120).label("Description"),
   phone_number: yup.string().label("Phone Number"),
   pincode: yup.string().label("Pincode"),
   address: yup.string().required().label("Address"),
@@ -96,9 +85,9 @@ export const postSchema = yup.object().shape({
   status: yup.string().required().label("Status"),
   avail_from: yup.string().required().label("Availability"),
   room_type: yup.string().required().label("Room Type"),
-  amenities: yup.string().label("Amenities"),
+  amenities: yup.array().label("Amenities"),
   categories: yup.string().label("Categories"),
-  conditions: yup.string().label("Conditions"),
+  conditions: yup.array().label("Conditions"),
 });
 
 export const loginSchema = yup.object().shape({

@@ -1,33 +1,21 @@
-import { Cookies as ReactCookies } from "react-cookie";
+import Cookies from "js-cookie";
 
-const warning = () => {
-  return false;
+export const setCookie = (
+  name: string,
+  value: any,
+  options: Cookies.CookieAttributes = {}
+) => {
+  return Cookies.set(name, value, options);
 };
 
-class Cookies {
-  _cookies: any = {};
-  constructor() {
-    if (typeof window !== "undefined") this._cookies = new ReactCookies();
-    else
-      this._cookies = {
-        get: warning,
-        set: warning,
-        remove: warning,
-      };
-  }
-  setCookie(opts: any) {
-    this._cookies = new ReactCookies(Object.assign({}, opts));
-  }
-  removeCookie(opts: any) {
-    return this._cookies.remove(opts);
-  }
-  get cookies() {
-    return this._cookies;
-  }
-  getCookie(name: any) {
-    return this._cookies[name];
-  }
-}
+export const getCookie = (name: string) => {
+  return Cookies.get(name);
+};
 
-export const cookies = new Cookies();
-export const getUniversalCookies = () => cookies.cookies;
+export const getAllCookies = () => {
+  return Cookies.get();
+};
+
+export const removeCookie = (name: string) => {
+  return Cookies.remove(name);
+};

@@ -2,6 +2,7 @@ export interface RowDetailsInterface {
   nodeItem?: any;
   colDef?: any;
   formData: any;
+  isEdit?: boolean;
 }
 
 export interface UserDetailsProps {

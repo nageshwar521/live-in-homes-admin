@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Header from "./modules/Header";
 import Sidebar from "./modules/Sidebar";
-import AppRoutes from "./routes/AppRoutes";
+import AppRoutes from "./routes";
 import { DRAWER_WIDTH } from "./constants";
 import { Global, css } from "@emotion/react";
 import { Toaster } from "react-hot-toast";
