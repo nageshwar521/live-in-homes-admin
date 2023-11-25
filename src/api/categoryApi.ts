@@ -1,4 +1,4 @@
-import axios from "axios";
+import { axios } from "../utils/common";
 import { apiBaseUrl } from "../constants";
 
 export const getCategoryListApi = async (params: any) => {

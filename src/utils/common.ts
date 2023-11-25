@@ -7,16 +7,38 @@ import {
   LocationItem,
 } from "../store/types";
 import { POST_STATUS, ROOM_TYPES, apiBaseUrl } from "../constants";
-import axios from "axios";
+import axiosLib, {
+  AxiosRequestHeaders,
+  InternalAxiosRequestConfig,
+} from "axios";
 import dayjs, { FormatObject } from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import { intersectionBy } from "lodash";
+import { getCookie } from "./cookies";
 
 dayjs.extend(localizedFormat);
 
 export const loadApiDefaults = () => {
-  axios.defaults.baseURL = apiBaseUrl;
+  axiosLib.defaults.baseURL = apiBaseUrl;
+  axiosLib.interceptors.request.use(
+    (config: InternalAxiosRequestConfig<any>) => {
+      // console.log(config);
+      const token = getCookie("accessToken");
+
+      if (token) {
+        (
+          config.headers as AxiosRequestHeaders
+        ).Authorization = `Bearer ${token}`;
+      }
+
+      return config;
+    }
+  );
+
+  axiosLib.defaults.headers.post["Content-Type"] = "application/json";
 };
+
+export const axios = axiosLib;
 
 export const getLocationsDropdownList = (locations: LocationItem[] = []) => {
   return locations.map((locationItem: LocationItem) => {

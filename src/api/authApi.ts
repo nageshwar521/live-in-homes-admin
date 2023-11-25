@@ -1,19 +1,5 @@
-import axios, { AxiosRequestHeaders, InternalAxiosRequestConfig } from "axios";
 import { apiBaseUrl } from "../constants";
-import { getCookie } from "../utils/cookies";
-
-axios.interceptors.request.use((config: InternalAxiosRequestConfig<any>) => {
-  // console.log(config);
-  const token = getCookie("accessToken");
-
-  if (token) {
-    (config.headers as AxiosRequestHeaders).Authorization = `Bearer ${token}`;
-  }
-
-  return config;
-});
-
-axios.defaults.headers.post["Content-Type"] = "application/json";
+import { axios } from "../utils/common";
 
 export const signupApi = async (data: any) => {
   console.log(apiBaseUrl, "apiBaseUrl");
