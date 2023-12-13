@@ -14,58 +14,58 @@ export const postSlice = createSlice({
   initialState,
   reducers: {
     fetchPostListRequest: (state, { payload }: PayloadAction<any>) => {
-      state.status = "loading";
+      state.status = "fetchPostList_loading";
     },
     fetchPostListSuccess: (state, { payload }: PayloadAction<any>) => {
-      state.status = "success";
+      state.status = "fetchPostList_success";
       state.postList = payload.data.posts;
       state.message = payload.message;
     },
     fetchPostListFailed: (state, { payload }) => {
-      state.status = "error";
+      state.status = "fetchPostList_error";
       state.errorResponse = payload.error;
       state.message = payload.message;
       toast.error(payload.message);
     },
     addPostRequest: (state, payload: PayloadAction<any>) => {
-      state.status = "loading";
+      state.status = "addPost_loading";
     },
     addPostSuccess: (state, { payload }: PayloadAction<any>) => {
-      state.status = "success";
+      state.status = "addPost_success";
       state.message = payload.message;
       toast.success(payload.message);
     },
     addPostFailed: (state, { payload }) => {
       console.log("addPostFailed");
-      state.status = "error";
+      state.status = "addPost_error";
       state.errorResponse = payload.error;
       state.message = payload.message;
       toast.error(payload.message);
     },
     updatePostRequest: (state, payload: PayloadAction<any>) => {
-      state.status = "loading";
+      state.status = "updatePost_loading";
     },
     updatePostSuccess: (state, { payload }: PayloadAction<any>) => {
-      state.status = "success";
+      state.status = "updatePost_success";
       state.message = payload.message;
       toast.success(payload.message);
     },
     updatePostFailed: (state, { payload }) => {
-      state.status = "error";
+      state.status = "updatePost_error";
       state.errorResponse = payload.error;
       state.message = payload.message;
       toast.error(payload.message);
     },
     deletePostRequest: (state, payload: PayloadAction<any>) => {
-      state.status = "loading";
+      state.status = "deletePost_loading";
     },
     deletePostSuccess: (state, { payload }: PayloadAction<any>) => {
-      state.status = "success";
+      state.status = "deletePost_success";
       state.message = payload.message;
       toast.success(payload.message);
     },
     deletePostFailed: (state, { payload }) => {
-      state.status = "error";
+      state.status = "deletePost_error";
       state.errorResponse = payload.error;
       state.message = payload.message;
       toast.error(payload.message);

@@ -55,6 +55,9 @@ const PostDetails: React.FC<PostDetailsProps> = ({
   onSubmit = noop,
 }) => {
   const dispatch = useAppDispatch();
+  const { status: addPostStatus } = useAppSelector(
+    (state) => state.posts
+  );
   const { amenityList, status: amenityApiStatus } = useAppSelector(
     (state) => state.amenities
   );
@@ -90,6 +93,12 @@ const PostDetails: React.FC<PostDetailsProps> = ({
     form.reset({});
     onClose();
   };
+
+  useEffect(() => {
+    if (addPostStatus === 'addPost_success') {
+      resetForm();
+    }
+  }, [addPostStatus]);
 
   const roomTypeOptions = getRoomtypesDropdownList();
   const amenityOptions = getAmenitiesDropdownList(amenityList);
