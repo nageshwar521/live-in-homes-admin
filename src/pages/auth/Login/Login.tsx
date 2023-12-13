@@ -118,11 +118,11 @@ const Login = () => {
             </BaseButton>
           </CardActions>
           <CardActions>
-            <Link href="/forgot-password" underline="hover">
+            <Link href="/auth/forgot-password" underline="hover">
               Forgot Password?
             </Link>
             <FlexGrow />
-            <Link href="/signup" underline="hover">
+            <Link href="/auth/signup" underline="hover">
               Don't have an account? Sign up
             </Link>
           </CardActions>

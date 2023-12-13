@@ -6,15 +6,13 @@ import {
 } from "react-hook-form";
 import { AmenityItem } from "../../store/types";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { branchSchema, amenitySchema } from "../../utils/validation";
+import { amenitySchema } from "../../utils/validation";
 import React, { useEffect, useState } from "react";
 import { get, noop } from "lodash";
 import { AmenityDetailsProps } from "./types";
 import { useAppDispatch, useAppSelector } from "../../store";
-import { fetchLocationListRequest } from "../../store/slices/locationSlice";
 import {
   getCategoriesDropdownList,
-  getLocationsDropdownList,
 } from "../../utils/common";
 import { TextInput } from "../../components/form/TextInput";
 import { SelectInput } from "../../components/form/SelectInput";

@@ -4,7 +4,7 @@ export interface RowDetailsInterface {
   formData: any;
 }
 
-export interface BranchDetailsProps {
+export interface AmenityDetailsProps {
   mode?: "view" | "edit" | "create";
   onClose?: () => void;
   rowDetails: RowDetailsInterface | null;

@@ -16,7 +16,6 @@ import { get } from "lodash";
 import BaseButton from "../../components/buttons/BaseButton";
 import Alert from "@mui/material/Alert";
 import { Box, CardMedia, SelectChangeEvent } from "@mui/material";
-import { fetchLocationListRequest } from "../../store/slices/locationSlice";
 import FilterDropdown from "../../components/form/FilterDropdown";
 import FlexGrow from "../../components/FlexGrow";
 import styled from "@emotion/styled";
@@ -71,10 +70,6 @@ const AmenityList = () => {
     setIsAmenityFormOpen(false);
   };
 
-  useEffect(() => {
-    dispatch(fetchLocationListRequest());
-  }, []);
-
   const colDef: ColDef[] = [
     {
       field: "amenity_name",
@@ -91,6 +86,7 @@ const AmenityList = () => {
   ];
 
   const handleAddAmenity = (data: any) => {
+    console.log(data, 'data');
     dispatch(addAmenityRequest({ ...defaultAmenityValues, ...data }));
   };
 

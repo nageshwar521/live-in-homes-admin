@@ -212,7 +212,7 @@ export const generateCategoryFormData = ({
   return {
     id: get(categoryDetails, "id", ""),
     category_name: get(categoryDetails, "category_name", ""),
-    category_descripton: get(categoryDetails, "category_descripton", ""),
+    category_description: get(categoryDetails, "category_description", ""),
   };
 };
 
@@ -224,7 +224,7 @@ export const generateConditionFormData = ({
   return {
     id: get(conditionDetails, "id", ""),
     condition_name: get(conditionDetails, "condition_name", ""),
-    condition_descripton: get(conditionDetails, "condition_descripton", ""),
+    condition_description: get(conditionDetails, "condition_description", ""),
   };
 };
 
