@@ -53,7 +53,7 @@ const BranchList = () => {
     branchList,
     errorResponse,
     status: addBranchStatus,
-  } = useAppSelector((state: RootState) => state.);
+  } = useAppSelector((state: RootState) => state.branches);
   const [isAddBranchFormOpen, setIsBranchFormOpen] = useState(false);
   const [isDeleteBranchOpen, setIsDeleteBranchOpen] = useState(false);
   const [rowDetails, setRowDetails] = useState<RowDetailsInterface | null>(
