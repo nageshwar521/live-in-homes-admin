@@ -10,15 +10,22 @@ import {
 import { DRAWER_WIDTH } from "../constants";
 import FlexGrow from "../components/FlexGrow";
 import React from "react";
+import { useAppDispatch } from "../store";
+import { userLogoutRequest } from "../store/slices/authSlice";
 
 const Header = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const dispatch = useAppDispatch();
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
+  const handleLogout = () => {
+    dispatch(userLogoutRequest({}));
+  }
   const handleClose = () => {
     setAnchorEl(null);
+    handleLogout();
   };
   return (
     <AppBar

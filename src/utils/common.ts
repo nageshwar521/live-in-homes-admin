@@ -6,19 +6,26 @@ import {
   ConditionItem,
   LocationItem,
 } from "../store/types";
-import { POST_STATUS, ROOM_TYPES, apiBaseUrl } from "../constants";
+import {
+  POST_STATUS,
+  ROOM_TYPES,
+  SESSION_TIMEOUT_STATUS_CODE,
+  apiBaseUrl,
+} from "../constants";
 import axiosLib, {
   AxiosRequestHeaders,
+  AxiosResponse,
   InternalAxiosRequestConfig,
 } from "axios";
 import dayjs, { FormatObject } from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import { intersectionBy } from "lodash";
 import { getCookie } from "./cookies";
+import { NavigateFunction } from "react-router-dom";
 
 dayjs.extend(localizedFormat);
 
-export const loadApiDefaults = () => {
+export const loadApiDefaults = (navigate: NavigateFunction) => {
   axiosLib.defaults.baseURL = apiBaseUrl;
   axiosLib.interceptors.request.use(
     (config: InternalAxiosRequestConfig<any>) => {
@@ -32,6 +39,18 @@ export const loadApiDefaults = () => {
       }
 
       return config;
+    }
+  );
+
+  axiosLib.interceptors.response.use(
+    (respose: AxiosResponse<any, any>) => {
+      return respose;
+    },
+    (error) => {
+      if (SESSION_TIMEOUT_STATUS_CODE === error.response.status) {
+        navigate("login");
+      }
+      return Promise.reject(error);
     }
   );
 

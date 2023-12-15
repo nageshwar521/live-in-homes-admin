@@ -1,10 +1,10 @@
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Routes, Route, BrowserRouter, useNavigate } from "react-router-dom";
 import Login from "../pages/auth/Login/Login";
 import ResetPassword from "../pages/auth/ResetPassword/ResetPassword";
 import ForgotPassword from "../pages/auth/ForgotPassword/ForgotPassword";
 import ProtectedRoute from "./ProtectedRoute";
 import NotFound from "../pages/NotFound";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { loadApiDefaults } from "../utils/common";
 import Layout from "../modules/Layout";
 import Signup from "../pages/auth/Signup/Signup";
@@ -17,6 +17,18 @@ import { useAppSelector } from "../store";
 import Dashboard from "../pages/dashboard/Dashboard";
 import { getCookie } from "../utils/cookies";
 import PublicRoute from "./PublicRoute";
+
+function NavigateFunctionComponent() {
+  let navigate = useNavigate();
+  const [ran,setRan] = useState(false);
+
+  {/* only run setup once */}
+  if(!ran){
+    loadApiDefaults(navigate);
+     setRan(true);
+  }
+  return <></>;
+}
 
 const AllRoutes = () => {
   const { loginResponse } = useAppSelector((state) => state.auth);
@@ -35,13 +47,10 @@ const AllRoutes = () => {
   //   }
   // }, [location]);
 
-  useEffect(() => {
-    loadApiDefaults();
-  }, []);
-
   return (
     <BrowserRouter>
       <Layout isLoggedIn={!!isAuthenticated}>
+        <NavigateFunctionComponent />
         <Routes>
           <Route
             path="/"
