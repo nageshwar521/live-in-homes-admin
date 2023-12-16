@@ -53,7 +53,7 @@ const Signup = () => {
   }, [signupStatus, authMessage]);
 
   const form: UseFormReturn<SignupFormData, UseFormProps> =
-    useForm<SignupFormData>({
+    useForm<any>({
       values: defaultValues,
       resolver: yupResolver(signupSchema),
     });
@@ -94,7 +94,7 @@ const Signup = () => {
             <Grid container direction="column">
               <TextInput
                 name="username"
-                label="Username"
+                label="Email"
                 placeholder="Enter username"
               />
               <TextInput
@@ -102,12 +102,14 @@ const Signup = () => {
                 label="Password"
                 placeholder="Enter password"
                 inputType="password"
+                textFieldProps={{...(form.register('password'))}}
               />
               <TextInput
                 name="confirmPassword"
                 label="Confirm Password"
                 placeholder="Enter confirm password"
                 inputType="password"
+                textFieldProps={{...(form.register('confirmPassword'))}}
               />
             </Grid>
           </CardContent>

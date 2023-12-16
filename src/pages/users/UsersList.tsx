@@ -108,10 +108,6 @@ const UserList = () => {
     dispatch(fetchUserListRequest({}));
   }, []);
 
-  useEffect(() => {
-    dispatch(fetchCafeListRequest({}));
-  }, []);
-
   const handleDetailsClose = () => {
     setIsUserFormOpen(false);
   };

@@ -22,7 +22,7 @@ import {
   useForm,
 } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { forgotPasswordSchema } from "../../../utils/validation";
+import { passwordSchema } from "../../../utils/validation";
 import { ForgotPasswordFormData } from "./types";
 import { forgotPasswordRequest } from "../../../store/slices/authSlice";
 import AuthContainer from "../AuthContainer";
@@ -47,14 +47,14 @@ const ForgotPassword = () => {
     if (forgotPasswordStatus === "forgot_error") {
       setError(authMessage);
     } else if (forgotPasswordStatus === "forgot_success") {
-      navigate("/login");
+      navigate("/auth/login");
     }
   }, [forgotPasswordStatus, authMessage]);
 
   const form: UseFormReturn<ForgotPasswordFormData, UseFormProps> =
     useForm<ForgotPasswordFormData>({
       values: defaultValues,
-      resolver: yupResolver(forgotPasswordSchema),
+      resolver: yupResolver(passwordSchema),
     });
 
   // console.log(form, "form");
@@ -103,7 +103,7 @@ const ForgotPassword = () => {
             </BaseButton>
           </CardActions>
           <CardActions>
-            <Link href="/login" underline="hover">
+            <Link href="/auth/login" underline="hover">
               Remember your Password?
             </Link>
           </CardActions>

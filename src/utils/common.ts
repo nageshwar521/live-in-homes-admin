@@ -325,3 +325,19 @@ export const getDateDisplayFormat = (
     ? dayjs().format(get(options, "format", ""))
     : dayjs(date).format(get(options, "format", ""));
 };
+
+export const getSessionExpiryTimeStamp = (time: string) => {
+  let timestamp = 1000 * 60 * 60;
+  const timeUnit = time.slice(-1);
+  const timeCount = +time.slice(0, -1) || 1;
+  switch(timeUnit) {
+    case "h":
+      timestamp = timeCount * 60 * 60 * 1000;
+    case "d":
+      timestamp = timeCount * 60 * 60 * 24 * 1000;
+    case "m":
+      timestamp = timeCount * 60 * 1000;
+    default:
+  }
+  return timestamp;
+}

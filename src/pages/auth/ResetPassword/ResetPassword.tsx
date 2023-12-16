@@ -22,7 +22,7 @@ import {
   useForm,
 } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { resetPasswordSchema } from "../../../utils/validation";
+import { passwordSchema } from "../../../utils/validation";
 import { ResetPasswordFormData } from "./types";
 import { resetPasswordRequest } from "../../../store/slices/authSlice";
 import AuthContainer from "../AuthContainer";
@@ -55,7 +55,7 @@ const ResetPassword = () => {
   const form: UseFormReturn<ResetPasswordFormData, UseFormProps> =
     useForm<ResetPasswordFormData>({
       values: defaultValues,
-      resolver: yupResolver(resetPasswordSchema),
+      resolver: yupResolver(passwordSchema),
     });
 
   // console.log(form, "form");

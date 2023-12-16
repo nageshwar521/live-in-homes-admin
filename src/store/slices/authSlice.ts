@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-hot-toast";
 import { removeCookie, setCookie } from "../../utils/cookies";
+import { getSessionExpiryTimeStamp } from "../../utils/common";
 
 const initialState = {
   status: "initial",
@@ -47,7 +48,7 @@ export const authSlice = createSlice({
       state.loginResponse = payload.data;
       state.message = payload.message;
       setCookie("accessToken", payload.data.accessToken, {
-        expires: payload.data.expiresIn,
+        expires: getSessionExpiryTimeStamp(payload.data.expiresIn),
       });
     },
     userLoginFailed: (state, { payload }) => {

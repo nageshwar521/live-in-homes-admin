@@ -1,4 +1,6 @@
-const nodeEnv = import.meta.env.VITE_NODE_ENV;
+const nodeEnv = import.meta.env.MODE;
+
+console.log(nodeEnv, 'nodeEnvs')
 
 export const DRAWER_WIDTH = 240;
 export const SESSION_TIMEOUT_STATUS_CODE = 401;
