@@ -111,9 +111,9 @@ const ResetPassword = () => {
             </BaseButton>
           </CardActions>
           <CardActions>
-            <Link href="/auth/login" underline="hover">
+            <BaseButton href="/auth/login">
               Login
-            </Link>
+            </BaseButton>
           </CardActions>
         </form>
       </FormProvider>

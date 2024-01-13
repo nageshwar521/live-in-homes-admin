@@ -8,31 +8,54 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
-import { DRAWER_WIDTH } from "../constants";
+import { DRAWER_WIDTH, MQ_LARGE_DEVICES } from "../constants";
 import { Link, useLocation, useParams } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../store";
+import FlexGrow from "../components/FlexGrow";
+import { IconButton, useMediaQuery } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import { toggleSidebar } from "../store/slices/commonSlice";
 
 interface SidebarProps {}
 
 const Sidebar: React.FC<SidebarProps> = ({}) => {
+  const dispatch = useAppDispatch();
+  const isLargeDevice = useMediaQuery(MQ_LARGE_DEVICES);
+  const { isSidebarOpen } = useAppSelector((state) => state.common);
   const location = useLocation();
+  const handleToggle = () => {
+    dispatch(toggleSidebar(!isSidebarOpen));
+  };
   return (
     <Box
       component="nav"
-      sx={{ width: { sm: DRAWER_WIDTH }, flexShrink: { sm: 0 } }}
+      sx={{
+        width: { sm: isSidebarOpen ? DRAWER_WIDTH : 0 },
+        flexShrink: { sm: 0 },
+      }}
     >
       <Drawer
         sx={{
           display: { xs: "block" },
           "& .MuiDrawer-paper": {
             boxSizing: "border-box",
-            width: DRAWER_WIDTH,
+            width: isSidebarOpen ? DRAWER_WIDTH : 0,
           },
         }}
         variant="permanent"
         open
       >
         <div>
-          <Toolbar />
+          <Toolbar>
+            {!isLargeDevice ? (
+              <React.Fragment>
+                <FlexGrow />
+                <IconButton onClick={handleToggle}>
+                  <CloseIcon />
+                </IconButton>
+              </React.Fragment>
+            ) : null}
+          </Toolbar>
           <Divider />
           <List>
             <ListItem disablePadding>

@@ -18,6 +18,7 @@ import { amenitySlice } from "./slices/amenitySlice";
 import { conditionSlice } from "./slices/conditionSlice";
 import { categorySlice } from "./slices/categorySlice";
 import { postSlice } from "./slices/postSlice";
+import { commonSlice } from "./slices/commonSlice";
 
 const rootReducer = combineReducers({
   amenities: amenitySlice.reducer,
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
   employees: employeeSlice.reducer,
   posts: postSlice.reducer,
   users: userSlice.reducer,
+  common: commonSlice.reducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();

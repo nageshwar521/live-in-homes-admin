@@ -3,6 +3,7 @@ import { DRAWER_WIDTH } from "../constants";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import { Fragment } from "react";
+import { useAppSelector } from "../store";
 
 export interface ILayoutProps {
   children: any;
@@ -10,6 +11,7 @@ export interface ILayoutProps {
 }
 
 const Layout: React.FC<ILayoutProps> = ({ children, isLoggedIn = false }) => {
+  const { isSidebarOpen } = useAppSelector(state => state.common);
   return (
     <Box
       sx={{
@@ -29,7 +31,7 @@ const Layout: React.FC<ILayoutProps> = ({ children, isLoggedIn = false }) => {
             component="main"
             sx={{
               p: 3,
-              width: `calc(100% - ${DRAWER_WIDTH}px)`,
+              width: `calc(100% - ${isSidebarOpen ? DRAWER_WIDTH : 0}px)`,
               flexDirection: "column",
               justifyContent: "flex-start",
               height: "100vh",

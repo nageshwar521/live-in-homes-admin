@@ -103,9 +103,9 @@ const ForgotPassword = () => {
             </BaseButton>
           </CardActions>
           <CardActions>
-            <Link href="/auth/login" underline="hover">
+            <BaseButton href="/auth/login">
               Remember your Password?
-            </Link>
+            </BaseButton>
           </CardActions>
         </form>
       </FormProvider>

@@ -30,6 +30,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "../../../utils/validation";
 import FlexGrow from "../../../components/FlexGrow";
 import AuthContainer from "../AuthContainer";
+import { fetchUserListRequest } from "../../../store/slices/userSlice";
+import { fetchPostListRequest } from "../../../store/slices/postSlice";
 
 const defaultValues: LoginFormData = {
   username: "",
@@ -56,7 +58,7 @@ const Login = () => {
       setError(authMessage);
     } else if (loginStatus === "login_success" && loginResponse.accessToken) {
       dispatch(resetAuthState({ status: "initial" }));
-      navigate("/");
+      navigate("/admin");
     }
   }, [loginStatus, authMessage]);
 
@@ -118,13 +120,13 @@ const Login = () => {
             </BaseButton>
           </CardActions>
           <CardActions>
-            <Link href="/auth/forgot-password" underline="hover">
+            <BaseButton href="/auth/forgot-password">
               Forgot Password?
-            </Link>
+            </BaseButton>
             <FlexGrow />
-            <Link href="/auth/signup" underline="hover">
+            <BaseButton href="/auth/signup">
               Don't have an account? Sign up
-            </Link>
+            </BaseButton>
           </CardActions>
         </form>
       </FormProvider>

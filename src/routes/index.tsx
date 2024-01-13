@@ -4,7 +4,7 @@ import ResetPassword from "../pages/auth/ResetPassword/ResetPassword";
 import ForgotPassword from "../pages/auth/ForgotPassword/ForgotPassword";
 import ProtectedRoute from "./ProtectedRoute";
 import NotFound from "../pages/NotFound";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { loadApiDefaults } from "../utils/common";
 import Layout from "../modules/Layout";
 import Signup from "../pages/auth/Signup/Signup";
@@ -20,12 +20,14 @@ import PublicRoute from "./PublicRoute";
 
 function NavigateFunctionComponent() {
   let navigate = useNavigate();
-  const [ran,setRan] = useState(false);
+  const [ran, setRan] = useState(false);
 
-  {/* only run setup once */}
-  if(!ran){
+  {
+    /* only run setup once */
+  }
+  if (!ran) {
     loadApiDefaults(navigate);
-     setRan(true);
+    setRan(true);
   }
   return <></>;
 }
@@ -48,7 +50,7 @@ const AllRoutes = () => {
   // }, [location]);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="admin">
       <Layout isLoggedIn={!!isAuthenticated}>
         <NavigateFunctionComponent />
         <Routes>

@@ -20,8 +20,10 @@ import axiosLib, {
 import dayjs, { FormatObject } from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import { intersectionBy } from "lodash";
-import { getCookie } from "./cookies";
+import { getCookie, removeCookie } from "./cookies";
 import { NavigateFunction } from "react-router-dom";
+import { store } from "../store";
+import { userLoginRequest } from "../store/slices/authSlice";
 
 dayjs.extend(localizedFormat);
 
@@ -48,7 +50,9 @@ export const loadApiDefaults = (navigate: NavigateFunction) => {
     },
     (error) => {
       if (SESSION_TIMEOUT_STATUS_CODE === error.response.status) {
-        navigate("login");
+        removeCookie('accessToken');
+        store.dispatch(userLoginRequest({}));
+        navigate("auth/login");
       }
       return Promise.reject(error);
     }

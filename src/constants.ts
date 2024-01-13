@@ -27,3 +27,5 @@ export const POST_STATUS = [
   { label: "Open", value: "open" },
   { label: "Closed", value: "closed" },
 ];
+
+export const MQ_LARGE_DEVICES = "only screen and (min-width : 769px)";

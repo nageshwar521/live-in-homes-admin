@@ -119,9 +119,9 @@ const Signup = () => {
             </BaseButton>
           </CardActions>
           <CardActions>
-            <Link href="/auth/login" underline="hover">
+            <BaseButton href="/auth/login">
               Already have an account? Login
-            </Link>
+            </BaseButton>
           </CardActions>
         </form>
       </FormProvider>

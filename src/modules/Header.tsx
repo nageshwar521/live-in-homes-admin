@@ -6,14 +6,21 @@ import {
   MenuItem,
   Toolbar,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
-import { DRAWER_WIDTH } from "../constants";
+import { DRAWER_WIDTH, MQ_LARGE_DEVICES } from "../constants";
 import FlexGrow from "../components/FlexGrow";
 import React from "react";
-import { useAppDispatch } from "../store";
+import { useAppDispatch, useAppSelector } from "../store";
 import { userLogoutRequest } from "../store/slices/authSlice";
+import DashboardIcon from "@mui/icons-material/Menu";
+import { toggleSidebar } from "../store/slices/commonSlice";
 
 const Header = () => {
+  const theme = useTheme();
+  const isLargeDevice = useMediaQuery(MQ_LARGE_DEVICES);
+  const { isSidebarOpen } = useAppSelector(state => state.common);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const dispatch = useAppDispatch();
   const open = Boolean(anchorEl);
@@ -25,17 +32,20 @@ const Header = () => {
   }
   const handleClose = () => {
     setAnchorEl(null);
-    handleLogout();
+  };
+  const handleToggle = () => {
+    dispatch(toggleSidebar(!isSidebarOpen));
   };
   return (
     <AppBar
       position="fixed"
       sx={{
-        width: { sm: `calc(100% - ${DRAWER_WIDTH}px)` },
-        ml: { sm: `${DRAWER_WIDTH}px` },
+        width: { sm: `calc(100% - ${isSidebarOpen ? DRAWER_WIDTH : 0}px)` },
+        ml: { sm: `${isSidebarOpen ? DRAWER_WIDTH : 0}px` },
       }}
     >
       <Toolbar>
+        {!isLargeDevice ? <IconButton onClick={handleToggle} style={{color: theme.palette.common.white}}><DashboardIcon /></IconButton> : null}
         <Typography variant="h6" noWrap component="div">
           Rental Homes
         </Typography>
@@ -47,7 +57,7 @@ const Header = () => {
           <MenuItem onClick={handleClose} disableRipple>
             Profile
           </MenuItem>
-          <MenuItem onClick={handleClose} disableRipple>
+          <MenuItem onClick={handleLogout} disableRipple>
             Logout
           </MenuItem>
         </Menu>
